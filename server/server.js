@@ -16,7 +16,12 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+    origin: 'https://kafefolio.vercel.app', // Replace with your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true, // Allow cookies and authentication
+};
+app.use(cors(corsOptions));
 app.use(express.json()); // Middleware for parsing JSON
 app.use(cookieParser());
 app.use(bodyParser.json()); // Middleware for parsing JSON
