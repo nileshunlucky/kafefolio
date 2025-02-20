@@ -9,7 +9,7 @@ export default defineConfig({
     react()],
     server: {
         proxy: {
-            '/api': 'http://localhost:3000'
+            '/api': 'https://kafefolio-server.onrender.com'
         }
     }
 })
