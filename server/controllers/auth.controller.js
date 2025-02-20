@@ -74,7 +74,7 @@ export const loginUser = async (req, res) => {
 
 export const googleAuth = async (req, res) => {
     try {
-        let { email, name, token } = req.body;
+        let { email, name } = req.body;
 
         if (!email) {
             return res.status(400).json({ message: "Email is required" });
