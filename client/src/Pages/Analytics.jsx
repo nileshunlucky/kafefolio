@@ -16,6 +16,7 @@ const Analytics = () => {
           credentials: "include",
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
         const data = await res.json();
@@ -37,6 +38,7 @@ const Analytics = () => {
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "application/json",
             },
           });
           if (!response.ok) {

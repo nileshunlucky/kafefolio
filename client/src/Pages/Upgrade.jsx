@@ -14,6 +14,7 @@ const Upgrade = () => {
                     credentials: 'include',
                     headers: {
                         Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
                       },
                 });
 
@@ -36,6 +37,7 @@ const Upgrade = () => {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
                   },
             });
             const data = await response.json();
@@ -54,6 +56,7 @@ const Upgrade = () => {
                         method: "POST",
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem("token")}`,
+                            "Content-Type": "application/json",
                           },
                         body: JSON.stringify({
                             payment_id: response.razorpay_payment_id,

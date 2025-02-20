@@ -14,6 +14,7 @@ const Contact = () => {
           credentials: "include",
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
@@ -41,6 +42,7 @@ const Contact = () => {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           user: user._id, // Use user ID

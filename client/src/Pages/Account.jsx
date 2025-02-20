@@ -33,6 +33,7 @@ const Account = () => {
           credentials: "include",
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
@@ -69,6 +70,7 @@ const Account = () => {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ name: formData.name }),
       });
@@ -92,6 +94,7 @@ const Account = () => {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
       });
 
@@ -119,6 +122,7 @@ const Account = () => {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username: formData.username }),
       });
@@ -145,6 +149,7 @@ const Account = () => {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
       });
 

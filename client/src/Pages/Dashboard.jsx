@@ -71,6 +71,7 @@ const Dashboard = () => {
           credentials: "include",
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
@@ -179,6 +180,7 @@ const Dashboard = () => {
         const res = await axios.post('https://kafefolio-server.onrender.com/api/user/post', formData, {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
@@ -215,6 +217,7 @@ const Dashboard = () => {
         data: { imageUrl: imageToDelete },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         }
       });
 
@@ -249,6 +252,7 @@ const Dashboard = () => {
       const res = await axios.post('https://kafefolio-server.onrender.com/api/user/upload', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
       });
 
@@ -279,6 +283,7 @@ const Dashboard = () => {
       const res = await axios.post('https://kafefolio-server.onrender.com/api/user/about', formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         }
       });
 
@@ -322,6 +327,7 @@ const Dashboard = () => {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData.about),
       });
@@ -352,6 +358,7 @@ const Dashboard = () => {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...formData, links: user?.links }), // Use formData.links
       });
@@ -390,6 +397,7 @@ const Dashboard = () => {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...formData, links: [...user?.links, formData.links[0]] }),
       });
@@ -427,6 +435,7 @@ const Dashboard = () => {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...formData, links: updatedLinks }),
       });
@@ -456,6 +465,7 @@ const Dashboard = () => {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           portfolio: {

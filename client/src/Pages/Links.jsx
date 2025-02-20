@@ -30,6 +30,7 @@ const Links = () => {
           credentials: 'include',
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
 
@@ -57,6 +58,7 @@ const Links = () => {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           user: user._id, // Use user ID
@@ -88,6 +90,7 @@ const Links = () => {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           user: user?._id, // Track based on user ID

@@ -13,6 +13,7 @@ const About = () => {
           credentials: "include",
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         });
         const data = await res.json();
@@ -39,6 +40,7 @@ const About = () => {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           user: user._id, // Use user ID
