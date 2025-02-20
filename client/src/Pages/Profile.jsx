@@ -10,7 +10,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`/api/user/${username}`);
+        const response = await fetch(`https://kafefolio-server.onrender.com/api/user/${username}`);
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
         }

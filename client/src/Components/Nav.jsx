@@ -21,7 +21,7 @@ const Nav = ({ user }) => {
 
   const trackSocialClick = async (platform) => {
     try {
-      await fetch("/api/analytics/track", {
+      await fetch("https://kafefolio-server.onrender.com/api/analytics/track", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

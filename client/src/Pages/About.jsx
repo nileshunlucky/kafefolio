@@ -7,7 +7,7 @@ const About = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const res = await fetch("/api/user/profile", {
+        const res = await fetch("https://kafefolio-server.onrender.com/api/user/profile", {
           method: "GET",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -32,7 +32,7 @@ const About = () => {
         return;
       }
 
-      const response = await fetch("/api/analytics/track", {
+      const response = await fetch("https://kafefolio-server.onrender.com/api/analytics/track", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

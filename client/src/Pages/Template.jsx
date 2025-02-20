@@ -71,7 +71,7 @@ const Template = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const res = await fetch("/api/user/profile", {
+        const res = await fetch("https://kafefolio-server.onrender.com/api/user/profile", {
           method: "GET",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -112,7 +112,7 @@ const Template = () => {
         },
       });
 
-      const res = await fetch("/api/user/update", {
+      const res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

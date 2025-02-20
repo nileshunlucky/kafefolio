@@ -27,7 +27,7 @@ const Account = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const res = await fetch("/api/user/profile", {
+        const res = await fetch("https://kafefolio-server.onrender.com/api/user/profile", {
           method: "GET",
           credentials: "include",
           headers: { "Content-Type": "application/json" }
@@ -61,7 +61,7 @@ const Account = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/user/update", {
+      const res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -82,7 +82,7 @@ const Account = () => {
 
   const handleDelete = async () => {
     try {
-      const res = await fetch("/api/user/delete", {
+      const res = await fetch("https://kafefolio-server.onrender.com/api/user/delete", {
         method: "DELETE",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -107,7 +107,7 @@ const Account = () => {
     }
 
     try {
-      let res = await fetch("/api/user/update", {
+      let res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -131,7 +131,7 @@ const Account = () => {
 
   const handleSignOut = async () => {
     try {
-      const res = await fetch("/api/user/logout", {
+      const res = await fetch("https://kafefolio-server.onrender.com/api/user/logout", {
         method: "GET",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

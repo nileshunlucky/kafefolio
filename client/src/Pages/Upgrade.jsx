@@ -8,7 +8,7 @@ const Upgrade = () => {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const res = await fetch('/api/user/profile', {
+                const res = await fetch('https://kafefolio-server.onrender.com/api/user/profile', {
                     method: 'GET',
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
@@ -29,7 +29,7 @@ const Upgrade = () => {
     const handlePayment = async () => {
         try {
             // Fetch subscription details from your backend
-            const response = await fetch("/api/razorpay/create-subscription", {
+            const response = await fetch("https://kafefolio-server.onrender.com/api/razorpay/create-subscription", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -47,7 +47,7 @@ const Upgrade = () => {
                     alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
 
                     // Send payment details to the backend to update the user's subscription status
-                    const updateRes = await fetch("/api/user/activate-pro", {
+                    const updateRes = await fetch("https://kafefolio-server.onrender.com/api/user/activate-pro", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",

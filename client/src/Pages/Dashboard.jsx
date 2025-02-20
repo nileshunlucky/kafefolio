@@ -65,7 +65,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const res = await fetch("/api/user/profile", {
+        const res = await fetch("https://kafefolio-server.onrender.com/api/user/profile", {
           method: "GET",
           credentials: "include",
           headers: { "Content-Type": "application/json" }
@@ -172,7 +172,7 @@ const Dashboard = () => {
         formData.append("image", file);
 
         // Upload each image
-        const res = await axios.post('/api/user/post', formData, {
+        const res = await axios.post('https://kafefolio-server.onrender.com/api/user/post', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -207,7 +207,7 @@ const Dashboard = () => {
       const imageToDelete = user?.portfolio?.images[index];
 
       // Call the backend to delete the image
-      await axios.delete(`/api/user/postDelete`, {
+      await axios.delete(`https://kafefolio-server.onrender.com/api/user/postDelete`, {
         data: { imageUrl: imageToDelete },
       });
 
@@ -237,7 +237,7 @@ const Dashboard = () => {
       formData.append("image", e.target.files[0]);
 
       // Make the POST request to upload the image
-      const res = await axios.post('/api/user/upload', formData, {
+      const res = await axios.post('https://kafefolio-server.onrender.com/api/user/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -267,7 +267,7 @@ const Dashboard = () => {
       formData.append("image", e.target.files[0]);
 
       // Make the POST request to upload the image
-      const res = await axios.post('/api/user/about', formData, {
+      const res = await axios.post('https://kafefolio-server.onrender.com/api/user/about', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -308,7 +308,7 @@ const Dashboard = () => {
   const handleAboutSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/user/aboutme", {
+      const res = await fetch("https://kafefolio-server.onrender.com/api/user/aboutme", {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -337,7 +337,7 @@ const Dashboard = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/user/update", {
+      const res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -375,7 +375,7 @@ const Dashboard = () => {
     e.preventDefault();
     try {
 
-      const res = await fetch("/api/user/update", {
+      const res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -412,7 +412,7 @@ const Dashboard = () => {
         links: updatedLinks,
       }));
 
-      const res = await fetch("/api/user/update", {
+      const res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -441,7 +441,7 @@ const Dashboard = () => {
     e.preventDefault();
     try {
       // Send the updated theme settings to the backend
-      const res = await fetch("/api/user/update", {
+      const res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
         headers: {

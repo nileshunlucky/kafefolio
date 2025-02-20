@@ -7,9 +7,4 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     react()],
-    server: {
-        proxy: {
-            '/api': 'https://kafefolio-server.onrender.com'
-        }
-    }
 })

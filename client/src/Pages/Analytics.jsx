@@ -10,7 +10,7 @@ const Analytics = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const res = await fetch("/api/user/profile", {
+        const res = await fetch("https://kafefolio-server.onrender.com/api/user/profile", {
           method: "GET",
           credentials: "include",
           headers: { "Content-Type": "application/json" },
@@ -30,7 +30,7 @@ const Analytics = () => {
     if (user?._id) {
       const fetchAnalytics = async () => {
         try {
-          const response = await fetch(`/api/analytics/user/${user._id}`, {
+          const response = await fetch(`https://kafefolio-server.onrender.com/api/analytics/user/${user._id}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",

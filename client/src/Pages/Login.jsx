@@ -19,7 +19,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const endpoint = signUp ? "/api/auth/login" : "/api/auth/register";
+        const endpoint = signUp ? "https://kafefolio-server.onrender.com/api/auth/login" : "https://kafefolio-server.onrender.com/api/auth/register";
         const userData = signUp ? { email, password } : { name, email, password };
 
         try {
@@ -51,7 +51,7 @@ const Login = () => {
             const user = result.user;
             const idToken = await user.getIdToken();
 
-            const res = await fetch("/api/auth/google", {
+            const res = await fetch("https://kafefolio-server.onrender.com/api/auth/google", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
