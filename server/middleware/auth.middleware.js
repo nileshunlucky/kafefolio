@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 export const verifyToken = (req, res, next) => {
 
-    const token = req.cookies.token; // Access token from cookies
+    const token = localStorage.getItem('token'); // Access token from cookies
 
     if (!token) {
         return res.status(401).json({ message: "Unauthorized. Redirect to login." });
