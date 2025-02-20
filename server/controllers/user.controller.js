@@ -1,0 +1,210 @@
+import User from "../models/user.model.js";
+
+// Get Single User Profile (Protected)
+export const UserProfile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id).select("-password"); // Exclude password
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json(user);
+    } catch (error) {
+        console.error("Error fetching user profile:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+export const logoutUser = (req, res) => {
+    res.clearCookie('token'); // Clear the cookie
+    res.json({ message: "Logout successful" });
+};
+
+export const deleteUser = async (req, res) => {
+    try {
+        await User.findByIdAndDelete(req.user.id);
+        res.json({ message: "User deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting user:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+export const updateUser = async (req, res) => {
+    try {
+
+        const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, { new: true });
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if (req.body.username) {
+            // Check if username contains emojis
+            const regexEmoji = /\p{Extended_Pictographic}/u;
+            if (regexEmoji.test(req.body.username)) {
+                return res.status(400).json({ message: "Username cannot contain emoji" });
+            }
+
+            // Check if username contains only allowed characters (letters, numbers, ".", "_")
+            const regexUsername = /^[a-zA-Z0-9._]+$/;
+            if (!regexUsername.test(req.body.username)) {
+                return res.status(400).json({ message: "Username cannot contain special characters except . and _" });
+            }
+
+            // Check if username is not longer than 20 characters
+            if (req.body.username.length > 20) {
+                return res.status(400).json({ message: "Username cannot be longer than 20 characters" });
+            }
+        }
+
+        res.json(updatedUser);
+    } catch (error) {
+        console.error("Error updating user:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+export const userPortfolio = async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username }).select("-password");
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json(user);
+    } catch (error) {
+        console.error("Error fetching user portfolio:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+
+export const uploadProfilePic = async (req, res) => {
+    try {
+        const imageUrl = req.file.path;
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        user.profilePic = imageUrl;
+        await user.save();
+
+        res.json({ message: "Image uploaded successfully" });
+
+    } catch (error) {
+        console.error("Error uploading image:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+export const portfolioPost = async (req, res) => {
+    try {
+        const imageUrl = req.file.path; // Assuming the file path is generated after upload
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Ensure `portfolio.images` exists as an array, and append the new image
+        if (!user.portfolio.images) {
+            user.portfolio.images = [];
+        }
+        user.portfolio.images.push(imageUrl);
+
+        await user.save();
+
+        res.json({ message: "Image uploaded successfully", url: imageUrl }); // Include the image URL in the response
+    } catch (error) {
+        console.error("Error uploading image:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+export const deletePortfolioPost = async (req, res) => {
+    try {
+        const { imageUrl } = req.body; // Get the image URL from the request body
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Remove the image from the user's portfolio
+        user.portfolio.images = user.portfolio.images.filter(
+            (image) => image !== imageUrl
+        );
+
+        await user.save();
+
+        res.json({ message: "Image deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting image:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+export const aboutUser = async (req, res) => {
+    try {
+        const imageUrl = req.file.path;
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        user.about.image = imageUrl;
+        await user.save();
+
+        res.json({ message: "Image uploaded successfully" });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+export const aboutMe = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Update the 'about' field in the user document
+        user.about = req.body;
+
+        // Save the updated user to the database
+        await user.save();
+
+        res.json({ message: "About Me updated successfully", about: user.about });
+    } catch (error) {
+        console.error("Error updating user:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+export const activePro = async (req, res) => {
+
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        
+        // Update the 'isPro' field in the user document
+        user.isPro = true;
+        await user.save();
+
+        res.json(user); // Send the updated user data
+    } catch (error) {
+        console.error("Error updating subscription status:", error);
+        res.status(500).json({ message: error.message });
+    }
+}
