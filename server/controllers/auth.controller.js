@@ -111,14 +111,6 @@ export const googleAuth = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
-        console.log("Token set in cookies:", token);
-        console.log("Cookies received in test-cookie route:", req.cookies);
-
-        // Set token in response header
-        res.setHeader("Set-Cookie", `token=${token}; HttpOnly; Secure; SameSite=None; Max-Age=${7 * 24 * 60 * 60}`);
-        res.status(200).json({ message: "Cookie set manually." });
-
-
         // Respond with the token and user info
         res.json({ token: jwtToken, user });
 

@@ -17,7 +17,7 @@ const app = express();
 
 // Middleware
 const corsOptions = {
-    origin: 'https://kafefolio.vercel.app', // Replace with your frontend URL
+    origin: ['https://kafefolio.vercel.app', 'http://localhost:5173'], // Replace with your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true, // Allow cookies and authentication
 };
