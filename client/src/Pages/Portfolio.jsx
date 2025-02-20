@@ -22,11 +22,12 @@ const Portfolio = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        const token = localStorage.getItem("token");
         const response = await fetch(`https://kafefolio-server.onrender.com/api/user/${username}`,
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
             credentials: "include",
