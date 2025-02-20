@@ -118,7 +118,9 @@ const Template = () => {
       const res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: JSON.stringify({
           portfolio: {
             images: formData.portfolio.images,

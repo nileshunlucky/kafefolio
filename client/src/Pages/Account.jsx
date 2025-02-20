@@ -67,7 +67,9 @@ const Account = () => {
       const res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: JSON.stringify({ name: formData.name }),
       });
 
@@ -88,7 +90,9 @@ const Account = () => {
       const res = await fetch("https://kafefolio-server.onrender.com/api/user/delete", {
         method: "DELETE",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
 
       const data = await res.json();
@@ -113,7 +117,9 @@ const Account = () => {
       let res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: JSON.stringify({ username: formData.username }),
       });
 
@@ -137,7 +143,9 @@ const Account = () => {
       const res = await fetch("https://kafefolio-server.onrender.com/api/user/logout", {
         method: "GET",
         credentials: "include",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
 
       const data = await res.json();

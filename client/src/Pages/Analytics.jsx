@@ -36,7 +36,7 @@ const Analytics = () => {
           const response = await fetch(`https://kafefolio-server.onrender.com/api/analytics/user/${user._id}`, {
             method: "GET",
             headers: {
-              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           });
           if (!response.ok) {

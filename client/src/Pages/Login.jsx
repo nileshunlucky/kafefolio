@@ -25,7 +25,9 @@ const Login = () => {
         try {
             const res = await fetch(endpoint, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
                 body: JSON.stringify(userData),
             });
 
@@ -53,7 +55,9 @@ const Login = () => {
 
             const res = await fetch("https://kafefolio-server.onrender.com/api/auth/google", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
                 body: JSON.stringify({
                     email: user.email,
                     name: user.displayName,

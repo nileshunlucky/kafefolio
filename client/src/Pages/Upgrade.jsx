@@ -35,8 +35,8 @@ const Upgrade = () => {
             const response = await fetch("https://kafefolio-server.onrender.com/api/razorpay/create-subscription", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
-                },
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  },
             });
             const data = await response.json();
 
@@ -53,8 +53,8 @@ const Upgrade = () => {
                     const updateRes = await fetch("https://kafefolio-server.onrender.com/api/user/activate-pro", {
                         method: "POST",
                         headers: {
-                            "Content-Type": "application/json",
-                        },
+                            Authorization: `Bearer ${localStorage.getItem("token")}`,
+                          },
                         body: JSON.stringify({
                             payment_id: response.razorpay_payment_id,
                             subscription_id: response.razorpay_subscription_id,

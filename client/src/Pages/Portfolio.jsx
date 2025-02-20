@@ -49,7 +49,9 @@ const Portfolio = () => {
 
       const response = await fetch("https://kafefolio-server.onrender.com/api/analytics/track", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
         body: JSON.stringify({
           user: user._id,
           eventType,
