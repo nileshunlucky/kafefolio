@@ -10,10 +10,13 @@ const Admin = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
+        const token = localStorage.getItem("token");
         const res = await fetch("https://kafefolio-server.onrender.com/api/user/profile", {
           method: "GET",
           credentials: "include",
-          headers: { "Content-Type": "application/json" }
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         const data = await res.json();
