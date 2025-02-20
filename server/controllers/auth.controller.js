@@ -106,7 +106,7 @@ export const googleAuth = async (req, res) => {
         // Set token in cookies (httpOnly and secure if in production)
         res.cookie('token', jwtToken, {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === 'production',
             sameSite: 'none',
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
