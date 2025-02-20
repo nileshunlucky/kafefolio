@@ -322,7 +322,7 @@ const Links = () => {
                 fontFamily: user?.portfolio?.theme?.font
               }}>
               <img className='w-10' src={'/kafefolio.png' || hidden} alt="logo" />
-              Kafefolio.com/you</button>
+              Kafefolio.vercel.app/you</button>
         </div>
       )}
     </div>

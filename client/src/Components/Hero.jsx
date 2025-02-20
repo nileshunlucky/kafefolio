@@ -22,7 +22,7 @@ const Hero = () => {
                     </div>
                     <form onSubmit={handleSubmit} className="flex md:flex-row flex-col items-center gap-5 padding20">
                         <div className="flex items-center w-[100%] bg-[#99582a] padding20 rounded-xl">
-                            <h1>Kafefolio.com/</h1>
+                            <h1>Kafefolio.vercel.app/</h1>
                             <input className='focus:outline-none w-[100%]' type="text" placeholder='yourname' required />
                         </div>
 
