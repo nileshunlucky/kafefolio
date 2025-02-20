@@ -340,11 +340,12 @@ const Dashboard = () => {
     e.preventDefault();
 
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch("https://kafefolio-server.onrender.com/api/user/update", {
         method: "PUT",
         credentials: "include",
         headers: {
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ ...formData, links: user?.links }), // Use formData.links
       });
