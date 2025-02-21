@@ -255,6 +255,26 @@ const Account = () => {
           </div>
         </div>
 
+        {/* transcation History */}
+        {
+          user?.subscription?.transactionId && (
+            <div className="flex flex-col gap-3">
+              <h1 className="text-xl font-semibold">Transaction History</h1>
+              <div className="bg-[#e1bb80] padding20 rounded-2xl flex flex-col gap-3">
+                <div className="flex items-center justify-between whitespace-nowrap gap-3">
+                  <p>transaction id - {user?.subscription?.transactionId}</p>
+                  {/* copy icon */}
+                  <i onClick={() => copyToClipboard(user?.subscription?.transactionId)} className="fa-regular fa-clipboard cursor-pointer padding10 text-xl" />
+                </div>
+                <p>Method - {user?.subscription?.method}</p>
+                <p >
+                  <span>Date - </span> {new Date(user?.subscription?.transactionDate).toLocaleString()}
+                </p>
+              </div>
+            </div>
+          )
+        }
+
         {/* Username Change */}
         {username && (
           <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex justify-center items-center z-50">

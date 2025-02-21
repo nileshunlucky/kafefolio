@@ -204,7 +204,7 @@ export const activePro = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
         // update the 'subscription' field in the user document
-        user.subscription = { transactionId: payment_id, amount, method };
+        user.subscription = { transactionId: payment_id, amount, method , transactionDate: new Date() };
 
         // Update the 'isPro' field in the user document
         user.isPro = true;

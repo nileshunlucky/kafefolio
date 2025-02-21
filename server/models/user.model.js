@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
         transactionId: { type: String, default: "" },
         amount: { type: Number, default: 0 },
         method: { type: String, default: "" },
-        timestamps: { type: Date, default: Date.now },
+        transactionDate: { type: Date, default: Date.now },
     },
 }, {
     timestamps: true,
