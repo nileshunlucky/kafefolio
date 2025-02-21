@@ -41,17 +41,6 @@ const Portfolio = () => {
 
         const data = await response.json();
         setUser(data);
-
-        // Track initial page view only if _id exists
-        if (data && data?._id) {
-          await trackEvent("page_view", {
-            username: data.username,
-            template: data.portfolio?.template,
-            page: "portfolio",
-          });
-        } else {
-          console.error("User data is incomplete. Cannot track event.");
-        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -60,29 +49,26 @@ const Portfolio = () => {
     fetchUser();
   }, [username]);
 
-  const trackEvent = async (eventType, details) => {
+  async function trackEvent(eventType, details) {
     try {
-      if (!user || !user?._id) {
+      if (!user || !user._id) {
         console.error("User ID is missing. Cannot track event.");
         return;
       }
 
-      const response = await fetch(
-        "https://kafefolio-server.onrender.com/api/analytics/track",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user: user._id,
-            eventType,
-            details,
-            timestamp: new Date().toISOString(),
-          }),
-        }
-      );
+      const response = await fetch("https://kafefolio-server.onrender.com/api/analytics/track", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user: user._id, // Use user ID
+          eventType,
+          details,
+          timestamp: new Date().toISOString(),
+        }),
+      });
 
       if (!response.ok) {
         console.error("Failed to track event:", await response.json());
@@ -90,15 +76,15 @@ const Portfolio = () => {
     } catch (error) {
       console.error("Failed to track event:", error);
     }
-  };
+  }
 
   useEffect(() => {
     // Ensure user and user._id are loaded before tracking the event
-    if (user && user?._id && !isEventTracked.current) {
+    if (user && user._id && !isEventTracked.current) {
       trackEvent("page_view", { page: "/home" });
       isEventTracked.current = true;
     }
-  }, [user]);
+  }, [user?._id]);
 
   if (!user) {
     return <div>Loading...</div>;
