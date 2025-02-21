@@ -87,7 +87,7 @@ const About = () => {
         {/* Content Section */}
         <div className="md:w-1/2 w-3/4 flex flex-col gap-5 text-center md:text-left marginb">
           <h1
-            className="text-4xl md:text-6xl font-medium tracking-wide mb-5"
+            className="text-4xl md:text-6xl font-medium tracking-wide whitespace-nowrap"
             style={{
               fontFamily: user?.portfolio?.theme?.font,
               color: user?.portfolio?.theme?.color,
