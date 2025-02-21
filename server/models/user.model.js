@@ -40,7 +40,13 @@ const userSchema = new mongoose.Schema({
         title: { type: String, default: "" },
         description: { type: String, default: "" },
         resume: { type: String, default: "" },
-    }
+    },
+    subscription: {
+        transactionId: { type: String, default: "" },
+        amount: { type: Number, default: 0 },
+        method: { type: String, default: "" },
+        timestamps: { type: Date, default: Date.now },
+    },
 }, {
     timestamps: true,
 });

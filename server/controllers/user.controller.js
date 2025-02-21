@@ -196,12 +196,16 @@ export const aboutMe = async (req, res) => {
 export const activePro = async (req, res) => {
 
     try {
+        const { payment_id, amount, method } = req.body;
+
         const user = await User.findById(req.user.id);
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        
+        // update the 'subscription' field in the user document
+        user.subscription = { transactionId: payment_id, amount, method };
+
         // Update the 'isPro' field in the user document
         user.isPro = true;
         await user.save();
