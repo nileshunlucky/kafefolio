@@ -180,3 +180,15 @@ body {
     transform: translateY(100%);
   }
 }
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.plans-bg, .hero-bg {
+  background: linear-gradient(-45deg, #432818, #99582a, #432818);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}

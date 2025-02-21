@@ -10,9 +10,8 @@ const Hero = () => {
     };
 
     return (
-        <div className='md:h-screen bg-[#432818] text-[#ffe6a7] flex justify-center items-center'>
+        <div className='hero-bg md:h-screen text-[#ffe6a7] flex justify-center items-center'>
             <div className="md:flex items-center gap-5">
-
                 <div className="md:w-[50%] flex flex-col md:gap-5 justify-center items-start h-screen">
                     <div className="padding20">
                         <h1 className='md:text-5xl text-4xl font-extrabold'>Everything you are. In one, simple Portfolio in bio.</h1>
@@ -30,7 +29,7 @@ const Hero = () => {
                     </form>
                 </div>
 
-                <div className="md:w-[50%] flex justify-center items-center">
+                <div className="md:w-[50%] md:flex hidden justify-center items-center">
                     <img className='md:h-screen w-screen object-contain' src="/kafeHero.png" alt="banner" />
                 </div>
             </div>
@@ -38,4 +37,4 @@ const Hero = () => {
     )
 }
 
-export default Hero
+export default Hero;

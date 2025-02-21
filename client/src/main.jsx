@@ -24,6 +24,7 @@ import Contact from './Pages/Contact.jsx'
 import Service from './Pages/Service.jsx'
 import Profile from './Pages/Profile.jsx'
 import Upgrade from './Pages/Upgrade.jsx'
+import AboutKafefolio from './Pages/AboutKafefolio.jsx'
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/template",
     element: <Template />,
+  },
+  {
+    path: "/about-us",
+    element: <AboutKafefolio />,
   },
   {
     path: "/plans",
