@@ -9,7 +9,17 @@ const Footer = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`https://kafefolio-server.onrender.com/api/user/${username}`);
+
+        const response = await fetch(`https://kafefolio-server.onrender.com/api/user/${username}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
         }
