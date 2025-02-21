@@ -63,6 +63,8 @@ const Portfolio = () => {
 
   const trackEvent = async (eventType, details) => {
     try {
+      console.log("user", user);
+      console.log("userId", user._id);
       if (!user || !user._id) {
         console.error("User ID is missing. Cannot track event.");
         return;
