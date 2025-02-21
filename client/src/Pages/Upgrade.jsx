@@ -33,7 +33,7 @@ const Upgrade = () => {
     const handlePayment = async () => {
         try {
             // Fetch subscription details from your backend
-            const response = await fetch("https://kafefolio-server.onrender.com/api/razorpay/create-subscription", {
+            const response = await fetch("https://kafefolio-server.onrender.com/api/v1/subscription", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -41,7 +41,6 @@ const Upgrade = () => {
                   },
             });
             const data = await response.json();
-            console.log("data", data);
 
             // Initiate Razorpay Checkout
             const options = {

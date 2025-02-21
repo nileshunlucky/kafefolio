@@ -1,14 +1,22 @@
-import razorpay from "../configs/razorpay.js";
+import User from "../models/user.model.js";
+import instance from "../configs/razorpay.js";
 
 export const subscription = async (req, res) => {
     try {
-        const subscription = await razorpay.subscriptions.create({
-            plan_id: "plan_PxrXNDPwIr9xae", // Replace with your Razorpay Plan ID
+
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Create a Razorpay subscription
+        let subscription = await instance.subscriptions.create({
+            plan_id: process.env.RAZORPAY_PLAN_ID, // Replace with your Razorpay Plan ID
             customer_notify: 1, // Notify the customer on subscription creation
-            total_count: null, // Number of billing cycles (optional, set null for ongoing)
+            total_count: null, // make it 1 month subscription
         });
 
-        console.log("Subscription created successfully:", subscription);
         res.json({ subscription });
     } catch (error) {
         console.error("Error creating subscription:", error);

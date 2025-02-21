@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/analytics', analyticsRoutes);
-app.use('/api/razorpay', razorpayRoutes);
+app.use('/api/v1', razorpayRoutes);
 
 const PORT = process.env.PORT || 3000;
 
