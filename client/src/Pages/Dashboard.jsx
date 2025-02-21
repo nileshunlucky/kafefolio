@@ -202,7 +202,7 @@ const Dashboard = () => {
 
     } catch (error) {
       console.error('Error uploading image:', error);
-      toast.error("Failed to upload images. Please try again.");
+      toast.error("Failed to upload image.", error);
     }
   };
 
