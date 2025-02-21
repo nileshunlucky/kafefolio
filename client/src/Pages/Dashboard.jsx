@@ -282,7 +282,6 @@ const Dashboard = () => {
       const res = await axios.post('https://kafefolio-server.onrender.com/api/user/about', formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
         }
       });
 
