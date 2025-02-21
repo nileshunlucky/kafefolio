@@ -122,7 +122,7 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
-      <div className="max-w-7xl mx-auto shadow-lg bg-white rounded-lg p-6">
+      <div className="mx-auto shadow-lg bg-white rounded-lg p-6">
         {renderTemplate()}
       </div>
       {/* Pass user to Outlet via context */}
