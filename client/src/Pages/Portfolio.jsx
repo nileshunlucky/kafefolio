@@ -43,7 +43,7 @@ const Portfolio = () => {
         setUser(data);
 
         // Track initial page view only if _id exists
-        if (data && data._id) {
+        if (data && data?._id) {
           await trackEvent("page_view", {
             username: data.username,
             template: data.portfolio?.template,
@@ -62,7 +62,7 @@ const Portfolio = () => {
 
   const trackEvent = async (eventType, details) => {
     try {
-      if (!user || !user._id) {
+      if (!user || !user?._id) {
         console.error("User ID is missing. Cannot track event.");
         return;
       }
@@ -94,7 +94,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     // Ensure user and user._id are loaded before tracking the event
-    if (user && user._id && !isEventTracked.current) {
+    if (user && user?._id && !isEventTracked.current) {
       trackEvent("page_view", { page: "/home" });
       isEventTracked.current = true;
     }
