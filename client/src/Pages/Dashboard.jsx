@@ -180,7 +180,6 @@ const Dashboard = () => {
         const res = await axios.post('https://kafefolio-server.onrender.com/api/user/post', formData, {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
         });
 
