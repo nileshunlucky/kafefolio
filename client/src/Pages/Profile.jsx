@@ -10,6 +10,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        const token = localStorage.getItem('token');
         const response = await fetch(`https://kafefolio-server.onrender.com/api/user/${username}`,
           {
             method: "GET",
