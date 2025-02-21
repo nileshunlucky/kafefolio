@@ -237,7 +237,7 @@ const Links = () => {
         {/* Profile */}
         <div className="flex flex-col justify-center text-center items-center gap-3">
           <img
-            src={user?.profilePic || '/default-profile-pic.png'}
+            src={user?.profilePic}
             alt={user?.username || 'User profile'}
             className="w-24 h-24 rounded-full object-cover"
           />
@@ -321,18 +321,14 @@ const Links = () => {
       {/* Join Kafefolio */}
       {!user?.isPro && (
         <div className="fixed bottom-10">
-            <button onClick={() => window.open('https://kafefolio.vercel.app', '_blank')} className='bg-[#99582a] text-[#ffe6a7] flex items-center gap-2 font-medium w-full cursor-pointer whitespace-nowrap padding10 rounded-full'
-              style={{
-                color: /^#[0-9A-Fa-f]{6}$/.test(user?.portfolio?.theme?.backgroundColor)
-                  ? user?.portfolio?.theme?.backgroundColor
-                  : 'black',
-                backgroundColor: /^#[0-9A-Fa-f]{6}$/.test(user?.portfolio?.theme?.color)
-                  ? user?.portfolio?.theme?.color
-                  : 'white',
-                fontFamily: user?.portfolio?.theme?.font
-              }}>
-              <img className='w-10' src={'/kafefolio.png' || hidden} alt="logo" />
-              Kafefolio.vercel.app/you</button>
+          <button onClick={() => window.open('https://kafefolio.vercel.app', '_blank')} className='flex items-center gap-2 font-medium w-full cursor-pointer whitespace-nowrap padding10 rounded-full'
+            style={{
+              fontFamily: user?.portfolio?.theme?.font,
+              backgroundColor: user?.portfolio?.theme?.color,
+              color: user?.portfolio?.theme?.backgroundColor
+            }}>
+            <img className='w-10' src={'/kafefolio.png' || hidden} alt="logo" />
+            Kafefolio.vercel.app/you</button>
         </div>
       )}
     </div>
