@@ -40,7 +40,6 @@ const Portfolio = () => {
         }
 
         const data = await response.json();
-        console.log("Fetched user data:", data); // Debugging: Ensure data has _id and other fields
         setUser(data);
 
         // Track initial page view only if _id exists
@@ -63,8 +62,7 @@ const Portfolio = () => {
 
   const trackEvent = async (eventType, details) => {
     try {
-      console.log("user", user);
-      console.log("userId", user._id);
+      // Ensure user and user._id exist before tracking
       if (!user || !user._id) {
         console.error("User ID is missing. Cannot track event.");
         return;
