@@ -23,7 +23,8 @@ const Portfolio = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`https://kafefolio-server.onrender.com/api/user/${username}`,
+        const response = await fetch(
+          `https://kafefolio-server.onrender.com/api/user/${username}`,
           {
             method: "GET",
             headers: {
@@ -33,20 +34,30 @@ const Portfolio = () => {
             credentials: "include",
           }
         );
-        if (!response.ok) throw new Error("Failed to fetch user data");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+
         const data = await response.json();
+        console.log("Fetched user data:", data); // Debugging: Ensure data has _id and other fields
         setUser(data);
 
-        // Track initial page view
-        await trackEvent("page_view", {
-          username: data?.username,
-          template: data?.portfolio?.template,
-          page: "portfolio",
-        });
+        // Track initial page view only if _id exists
+        if (data && data._id) {
+          await trackEvent("page_view", {
+            username: data.username,
+            template: data.portfolio?.template,
+            page: "portfolio",
+          });
+        } else {
+          console.error("User data is incomplete. Cannot track event.");
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
     };
+
     fetchUser();
   }, [username]);
 
@@ -57,19 +68,22 @@ const Portfolio = () => {
         return;
       }
 
-      const response = await fetch("https://kafefolio-server.onrender.com/api/analytics/track", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user: user._id,
-          eventType,
-          details,
-          timestamp: new Date().toISOString(),
-        }),
-      });
+      const response = await fetch(
+        "https://kafefolio-server.onrender.com/api/analytics/track",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user: user._id,
+            eventType,
+            details,
+            timestamp: new Date().toISOString(),
+          }),
+        }
+      );
 
       if (!response.ok) {
         console.error("Failed to track event:", await response.json());
@@ -81,7 +95,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     // Track a general page view event when user data is loaded
-    if (user && !isEventTracked.current) {
+    if (user && user._id && !isEventTracked.current) {
       trackEvent("page_view", { page: "/home" });
       isEventTracked.current = true;
     }
@@ -91,9 +105,9 @@ const Portfolio = () => {
     return <div>Loading...</div>;
   }
 
-  // Render the template dynamically and track template-specific analytics
+  // Render the template dynamically
   const renderTemplate = () => {
-    const template = user.portfolio.template;
+    const template = user.portfolio?.template;
 
     switch (template) {
       case "Classic":
