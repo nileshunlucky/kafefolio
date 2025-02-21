@@ -467,6 +467,7 @@ const Dashboard = () => {
         },
         body: JSON.stringify({
           portfolio: {
+            images: formData.portfolio.images,
             theme: formData.portfolio.theme
           }
         }),
@@ -480,6 +481,7 @@ const Dashboard = () => {
         ...prev,
         portfolio: {
           ...prev.portfolio,
+          images: data.portfolio?.images || prev.portfolio?.images,
           theme: {
             color: data.portfolio?.theme?.color || prev.portfolio?.theme?.color,
             backgroundColor: data.portfolio?.theme?.backgroundColor || prev.portfolio?.theme?.backgroundColor,
