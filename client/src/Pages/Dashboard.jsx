@@ -252,12 +252,12 @@ const Dashboard = () => {
       const res = await axios.post('https://kafefolio-server.onrender.com/api/user/upload', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
         },
       });
 
       // Axios automatically parses JSON responses, so use `res.data` directly
       const data = res.data;
+      console.log(data);
 
       // Success feedback
       toast.success("Image uploaded!");
