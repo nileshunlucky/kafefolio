@@ -45,7 +45,7 @@ const Upgrade = () => {
 
             // Initiate Razorpay Checkout
             const options = {
-                key: "rzp_test_JaKq5mmdGMOV21", // Replace with your Razorpay Key ID
+                key: "rzp_live_rZzJDbHYxx55as", // Replace with your Razorpay Key ID
                 subscription_id: data.subscription.id, // Subscription ID from backend
                 name: "Kafefolio",
                 description: "Monthly Subscription Plan",

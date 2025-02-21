@@ -12,7 +12,7 @@ export const subscription = async (req, res) => {
 
         // Create a Razorpay subscription
         const subscription = await instance.subscriptions.create({
-            plan_id: "plan_PyGLXAf8e2w6yH", // Replace with your Razorpay Plan ID
+            plan_id: process.env.RAZORPAY_PLAN_ID, // Replace with your Razorpay Plan ID
             customer_notify: 1, // Notify the customer on subscription creation
             total_count: 12, // Null indicates an ongoing subscription
         });

@@ -63,11 +63,15 @@ const Admin = () => {
         </div>
 
         <div className="flex flex-col gap-5 padding10">
-          <div className="flex flex-col gap-2 bg-[#e1bb80] rounded-2xl padding10">
-            <h1 className='font-semibold text-lg text-[#432818]'>Try Pro for free 🤩</h1>
-            <p className='text-[15px] text-[#432818]'>It's the most popular plan for content creators and businesses.</p>
-            <Link to="/admin/upgrade"><button className='bg-[#432818] text-[#ffe6a7] w-full cursor-pointer padding10 rounded-2xl'>Claim Now</button></Link>
-          </div>
+          {
+            !user?.isPro && (
+              <div className="flex flex-col gap-2 bg-[#e1bb80] rounded-2xl padding10">
+                <h1 className='font-semibold text-lg text-[#432818]'>Try Pro for free 🤩</h1>
+                <p className='text-[15px] text-[#432818]'>It's the most popular plan for content creators and businesses.</p>
+                <Link to="/admin/upgrade"><button className='bg-[#432818] text-[#ffe6a7] w-full cursor-pointer padding10 rounded-2xl'>Claim Now</button></Link>
+              </div>
+            )
+          }
 
           <Link to="/admin/account"><button className="flex items-center gap-2 hover:bg-[#e1bb80] rounded-full padding10 cursor-pointer">
             <img
