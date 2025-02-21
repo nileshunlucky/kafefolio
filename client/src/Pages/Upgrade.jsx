@@ -15,7 +15,7 @@ const Upgrade = () => {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
-                      },
+                    },
                 });
 
                 const data = await res.json();
@@ -38,7 +38,7 @@ const Upgrade = () => {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`,
                     "Content-Type": "application/json",
-                  },
+                },
             });
             const data = await response.json();
             console.log("data", data)
@@ -58,7 +58,7 @@ const Upgrade = () => {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem("token")}`,
                             "Content-Type": "application/json",
-                          },
+                        },
                         body: JSON.stringify({
                             payment_id: response.razorpay_payment_id,
                             subscription_id: response.razorpay_subscription_id,
@@ -91,22 +91,37 @@ const Upgrade = () => {
 
     return (
         <div className="min-h-screen flex justify-center items-center padding20">
-            <div className="flex flex-col gap-5 items-center text-center bg-[#E1BB80] text-[#432818] rounded-xl padding20">
-                <h1>Upgrade to Monthly Plan</h1>
-                <p>Subscribe for ₹299 per month and unlock premium features.</p>
-                <button
-                    className="bg-[#432818] text-[#E1BB80] w-full cursor-pointer whitespace-nowrap padding10 rounded-xl"
-                    onClick={handlePayment}
-                >
-                    Subscribe Now
-                </button>
-                <button
-                    onClick={() => navigate('/plans')}
-                    className="border-[#432818] border-2 w-full cursor-pointer whitespace-nowrap padding10 rounded-xl"
-                >
-                    Plan
-                </button>
-            </div>
+            {
+                !user?.isPro ? (
+                    <div className="flex flex-col gap-5 items-center text-center bg-[#E1BB80] text-[#432818] rounded-xl padding20">
+                        <h1 className="text-2xl border-b border-[#432818] whitespace-nowrap">Upgrade to Pro Plan</h1>
+                        <p>Subscribe for ₹299 per month and unlock premium features.</p>
+                        <button
+                            className="bg-[#432818] text-[#E1BB80] w-full cursor-pointer whitespace-nowrap padding10 rounded-xl"
+                            onClick={handlePayment}
+                        >
+                            Subscribe Now
+                        </button>
+                        <button
+                            onClick={() => navigate('/plans')}
+                            className="border-[#432818] border-2 w-full cursor-pointer whitespace-nowrap padding10 rounded-xl"
+                        >
+                            Plan
+                        </button>
+                    </div>
+                ) : (
+                    <div className="flex flex-col gap-5 items-center text-center bg-[#E1BB80] text-[#432818] rounded-xl padding20">
+                        <h1 className="text-2xl border-b border-[#432818]">You're Already a Pro!</h1>
+                        <p> Enjoy exclusive features and premium access with your subscription. Thank you for choosing the best.</p>
+                        <button
+                            className="bg-[#432818] text-[#E1BB80] w-full cursor-pointer whitespace-nowrap padding10 rounded-xl"
+                            onClick={() => navigate('/plans')}
+                        >
+                           Explore Plan
+                        </button>
+                    </div>
+                )
+            }
         </div>
     );
 };

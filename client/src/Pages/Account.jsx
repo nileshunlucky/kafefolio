@@ -238,11 +238,19 @@ const Account = () => {
             <hr />
             <div className="flex flex-col gap-3">
               <p><span className='Pacifico'>Kafefolio</span> for {user?.name} ☕</p>
-              <Link to="/admin/upgrade">
-                <button className='bg-[#432818] text-[#ffe6a7] padding10 rounded-2xl cursor-pointer w-full'>
-                  Upgrade to Pro
-                </button>
-              </Link>
+              {
+                !user?.isPro ? (
+                  <Link to="/admin/upgrade">
+                    <button className='bg-[#432818] text-[#ffe6a7] padding10 rounded-2xl cursor-pointer w-full'>
+                      Upgrade to Pro
+                    </button>
+                  </Link>
+                ) : (
+                  <button className='bg-[#432818] text-[#ffe6a7] padding10 rounded-2xl cursor-pointer w-full'>
+                    Congrats! You are Pro 🎉
+                  </button>
+                )
+              }
             </div>
           </div>
         </div>
@@ -286,7 +294,7 @@ const Account = () => {
           <p className='text-[#432818] font-medium'>Get help with your Kafefolio account.</p>
           <div className="flex items-center gap-3 justify-between">
             <button onClick={() => window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=kafefolio@gmail.com`, "_blank")} className='bg-[#432818] text-[#ffe6a7] padding10 rounded-2xl cursor-pointer w-full whitespace-nowrap'>Email</button>
-            <button onClick={()=> window.open("https://wa.me/9082973931", "_blank")} className='bg-[#432818] text-[#ffe6a7] padding10 rounded-2xl cursor-pointer w-full whitespace-nowrap'>WhatsApp</button>
+            <button onClick={() => window.open("https://wa.me/9082973931", "_blank")} className='bg-[#432818] text-[#ffe6a7] padding10 rounded-2xl cursor-pointer w-full whitespace-nowrap'>WhatsApp</button>
           </div>
         </div>
 
