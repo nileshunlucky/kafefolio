@@ -106,15 +106,10 @@ const Links = () => {
   return (
     <div
       className="flex md:items-center justify-center min-h-screen noscrollbar scroll-smooth"
-      style={{
-        backgroundColor: /^#[0-9A-Fa-f]{6}$/.test(user?.portfolio?.theme?.backgroundColor)
-          ? user?.portfolio?.theme?.backgroundColor
-          : 'black',
-        color: /^#[0-9A-Fa-f]{6}$/.test(user?.portfolio?.theme?.color)
-          ? user?.portfolio?.theme?.color
-          : 'white',
-        fontFamily: user?.portfolio?.theme?.font,
-      }}
+     style={{
+       backgroundColor: user?.portfolio?.theme?.backgroundColor,
+       color: user?.portfolio?.theme?.color
+     }}
     >
       <Toaster />
       <div className="md:w-1/2 w-[90%] flex flex-col gap-5 marginy">
