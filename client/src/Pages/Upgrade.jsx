@@ -41,6 +41,7 @@ const Upgrade = () => {
                   },
             });
             const data = await response.json();
+            console.log("data", data);
 
             // Initiate Razorpay Checkout
             const options = {

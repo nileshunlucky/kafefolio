@@ -1,3 +1,5 @@
+import razorpay from "../configs/razorpay.js";
+
 export const subscription = async (req, res) => {
     try {
         const subscription = await razorpay.subscriptions.create({
@@ -6,7 +8,7 @@ export const subscription = async (req, res) => {
             total_count: null, // Number of billing cycles (optional, set null for ongoing)
         });
 
-
+        console.log("Subscription created successfully:", subscription);
         res.json({ subscription });
     } catch (error) {
         console.error("Error creating subscription:", error);
