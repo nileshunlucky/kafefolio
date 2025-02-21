@@ -98,7 +98,7 @@ const Analytics = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen padding20 marginb">
-      {!user?.isPro ? (
+      {user?.isPro ? (
         <div className="w-full max-w-4xl mx-auto">
           {analytics.length === 0 ? (
             <p className="text-center">No analytics data available</p>
