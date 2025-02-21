@@ -50,11 +50,11 @@ const Admin = () => {
               <p className='text-2xl Pacifico text-[#432818]'>Kafefolio</p>
             </Link>
             {/* dashboard */}
-            <Link className='flex items-center gap-2 hover:bg-[#e1bb80] padding10 rounded-xl' to="/admin"><i className="fa-solid fa-briefcase" /><li>Portfolio</li></Link>
+            <Link className='flex items-center gap-2 text-[#432818] hover:bg-[#e1bb80] padding10 rounded-xl' to="/admin"><i className="fa-solid fa-briefcase" /><li>Portfolio</li></Link>
             {/* template */}
-            <Link className='flex items-center gap-2 hover:bg-[#e1bb80] padding10 rounded-xl' to="/admin/template"><i className="fa-solid fa-layer-group"></i><li>Template</li></Link>
+            <Link className='flex items-center gap-2 text-[#432818] hover:bg-[#e1bb80] padding10 rounded-xl' to="/admin/template"><i className="fa-solid fa-layer-group"></i><li>Template</li></Link>
             {/* analytics */}
-            <Link className='flex items-center gap-2 hover:bg-[#e1bb80] padding10 rounded-xl' to="/admin/analytics">
+            <Link className='flex items-center gap-2 text-[#432818] hover:bg-[#e1bb80] padding10 rounded-xl' to="/admin/analytics">
               <i className="fa-solid fa-chart-simple" /><li>Analytics</li>
             </Link>
             {/* setting */}
@@ -79,7 +79,7 @@ const Admin = () => {
               alt="Profile"
               className="w-9 h-9 rounded-full"
             />
-            <p className='text-[15px] truncate font-medium'>{user?.email}</p>
+            <p className='text-[15px] truncate font-medium text-[#432818]'>{user?.email}</p>
           </button></Link>
         </div>
       </div>
