@@ -23,12 +23,13 @@ const Login = () => {
         const userData = signUp ? { email, password } : { name, email, password };
 
         try {
+            const token = localStorage.getItem("token");
             const res = await fetch(endpoint, {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
-                  },
+                },
                 body: JSON.stringify(userData),
             });
 
@@ -60,7 +61,7 @@ const Login = () => {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
-                  },
+                },
                 body: JSON.stringify({
                     email: user.email,
                     name: user.displayName,

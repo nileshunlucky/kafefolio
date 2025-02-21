@@ -39,7 +39,7 @@ export const registerUser = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
-        res.status(201).json({ user });
+        res.status(201).json({ token, user });
     } catch (error) {
         res.status(500).json({ message: "Server error" });
     }
@@ -66,7 +66,7 @@ export const loginUser = async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         });
 
-        res.json({ user });
+        res.json({ token, user });
     } catch (error) {
         res.status(500).json({ message: "Server error" });
     }
