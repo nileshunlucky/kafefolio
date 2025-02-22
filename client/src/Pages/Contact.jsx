@@ -3,7 +3,7 @@ import { toast, Toaster } from "react-hot-toast";
 
 const Contact = () => {
   const [user, setUser] = useState(null);
-    const isEventTracked = useRef(false); // To ensure events are tracked only once
+  const isEventTracked = useRef(false); // To ensure events are tracked only once
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -87,13 +87,13 @@ const Contact = () => {
         <p className="mb-6 padding20" style={{ color: user?.portfolio.theme.color, fontFamily: user?.portfolio.theme.font }}>
           Click the button below to email me directly. I'd love to hear from you!
         </p>
-        <button
-          onClick={() => window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${user?.email}`, "_blank")}
+        <a
+          href={`mailto:${user?.email}`}
           className="w-full padding10 rounded-b-xl font-medium text-lg hover:scale-105 hover:rounded-xl transform transition duration-500 cursor-pointer"
           style={{ backgroundColor: user?.portfolio.theme.color, color: user?.portfolio.theme.backgroundColor, fontFamily: user?.portfolio.theme.font }}
         >
           Email Me
-        </button>
+        </a>
       </div>
     </div>
   );
