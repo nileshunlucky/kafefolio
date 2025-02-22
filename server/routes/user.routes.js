@@ -10,7 +10,8 @@ import {
     userPortfolio,
     aboutUser,
     aboutMe,
-    activePro
+    activePro,
+    linkMedia
 } from '../controllers/user.controller.js';
 import { verifyToken } from '../middleware/auth.middleware.js';
 import { upload } from '../middleware/multer.js';
@@ -28,7 +29,7 @@ router.post('/post', verifyToken, (req, res, next) => {
 }, portfolioPost);
 router.post('/media', verifyToken, (req, res, next) => {
     if (!req.user.isPro) {
-        return res.status(403).json({ message: "Upgrade to Pro to upload videos." });
+        return res.status(403).json({ message: "Upgrade to Pro to upload media." });
     }
     upload.single('image')(req, res, next);
 }, linkMedia);
