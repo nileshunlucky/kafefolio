@@ -35,6 +35,8 @@ const Plans = () => {
               <hr />
               <li className='padding10'>Links</li>
               <hr />
+              <li className='padding10'>Links bg Media</li>
+              <hr />
               <li className='padding10'>Custom Theme</li>
               <hr />
               <li className='whitespace-nowrap padding10'>Animation Template's</li>
@@ -63,6 +65,8 @@ const Plans = () => {
               <hr />
               <li className='padding10'>No</li>
               <hr />
+              <li className='padding10'>No</li>
+              <hr />
               <li className='padding10'>Basic</li>
               <hr />
               <li className='padding10'>No</li>
@@ -87,6 +91,8 @@ const Plans = () => {
               <li className='padding10 md:hidden block '>Img & Vid</li>
               <hr />
               <li className='padding10'>Unlimited</li>
+              <hr />
+              <li className='padding10'>Yes</li>
               <hr />
               <li className='padding10'>Yes</li>
               <hr />

@@ -11,6 +11,7 @@ const Dashboard = () => {
     name: '',
     bio: '',
     category: '',
+    linkMedia: '',
     social: {
       facebook: '',
       X: '',
@@ -88,6 +89,7 @@ const Dashboard = () => {
           name: data.name,
           bio: data.bio,
           category: data.category,
+          linkMedia: data.linkMedia,
           social: {
             facebook: data.social?.facebook,
             X: data.social?.X,
@@ -278,6 +280,42 @@ const Dashboard = () => {
       toast.error(error.message);
     }
   };
+
+  const handleLinkMedia = async (e) => {
+    try {
+      const file = e.target.files[0];
+
+      if (!file) {
+        toast.error("No file selected.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("image", file);
+
+      // Upload each Media
+      const token = localStorage.getItem("token");
+      const res = await axios.post('https://kafefolio-server.onrender.com/api/user/media', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log(res);
+
+      toast.success("Media uploaded!");
+
+      // Update the user state with the new Media
+      setUser((prev) => ({
+        ...prev,
+        linkMedia: res.url
+      }));
+
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error("Failed to upload image.");
+    }
+  }
 
   const handleAboutImageChange = async (e) => {
     try {
@@ -919,6 +957,24 @@ const Dashboard = () => {
               <Link to="/admin/upgrade"><button className='bg-[#432818] text-[#ffe6a7] paddingy w-full rounded-full cursor-pointer flex items-center justify-center gap-2'>Upgrade to Pro</button></Link>
             ) : (
               <button onClick={() => setAddLinks(!addLinks)} className='bg-[#432818] text-[#ffe6a7] paddingy w-full rounded-full cursor-pointer flex items-center justify-center gap-2'><i className="fa-solid fa-link" />Add links</button>
+            )
+          }
+
+          {
+            user?.isPro && (
+              <label className='w-full flex justify-center items-center'>
+                {
+                  user?.linkMedia ? (
+                    <img className='md:w-24 w-20 md:h-24 h-20 rounded-full object-cover cursor-pointer'
+                      src={user?.linkMedia} alt="pic" />
+                  ) : (
+                    <div className='w-full md:h-24 h-20 rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer'>
+                     <p className='text-[#ffe6a7] text-sm'>Upload Background Media</p>
+                    </div>
+                  )
+                }
+                <input accept="image/*,video/*" onChange={handleLinkMedia} type="file" className='hidden' />
+              </label>
             )
           }
 

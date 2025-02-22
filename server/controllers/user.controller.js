@@ -142,30 +142,18 @@ export const portfolioPost = async (req, res) => {
 };
 export const linkMedia = async (req, res) => {
     try {
-        // Check if file exists
-        if (!req.file) {
-            return res.status(400).json({ message: "No file uploaded." });
-        }
-
-        const mediaUrl = req.file.path; // Cloudinary URL
+        const mediaUrl = req.file.path;
         const user = await User.findById(req.user.id);
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        // Restrict free users from uploading videos and images
-        if (!user.isPro) {
-            return res.status(403).json({ message: "Upgrade to Pro to upload media." });
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });
         }
 
-        // Ensure `portfolio.media` exists and add new file
-        if (!user.linkMedia) {
-            user.linkMedia = [];
-        }
-
-        user.linkMedia.push(mediaUrl);
-
+        user.linkMedia = mediaUrl;
         await user.save();
 
         res.json({ message: "Upload successful", url: mediaUrl });
@@ -250,7 +238,7 @@ export const activePro = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
         // update the 'subscription' field in the user document
-        user.subscription = { transactionId: payment_id, amount, method , transactionDate: new Date() };
+        user.subscription = { transactionId: payment_id, amount, method, transactionDate: new Date() };
 
         // Update the 'isPro' field in the user document
         user.isPro = true;
