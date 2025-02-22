@@ -409,6 +409,14 @@ const Dashboard = () => {
         links: [...user?.links, formData.links[0]],
       }));
 
+      // Reset formData after submission
+      setFormData((prev) => ({
+        ...prev,
+        links: [{ text: "", url: "" }], // Reset input fields
+      }));
+
+      toast.success("Link added!");
+
       setAddLinks(false);
     } catch (error) {
       console.error("Add Error:", error);
