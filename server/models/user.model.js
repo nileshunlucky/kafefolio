@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
     },
     portfolio: {
         template: { type: String, default: "Classic" },
-        images: { type: [String], default: [] },
+        media: { type: [String], default: [] },
         theme: {
             color: { type: String, default: "#000" },
             backgroundColor: { type: String, default: "#f4f4f4" },
@@ -41,12 +41,14 @@ const userSchema = new mongoose.Schema({
         description: { type: String, default: "" },
         resume: { type: String, default: "" },
     },
-    subscription: {
-        transactionId: { type: String, default: "" },
-        amount: { type: Number, default: 0 },
-        method: { type: String, default: "" },
-        transactionDate: { type: Date, default: Date.now },
-    },
+    subscription: [
+        {
+            transactionId: { type: String, default: "" },
+            amount: { type: Number, default: 0 },
+            method: { type: String, default: "" },
+            transactionDate: { type: Date, default: Date.now },
+        },
+    ]
 }, {
     timestamps: true,
 });

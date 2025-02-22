@@ -108,24 +108,35 @@ export const uploadProfilePic = async (req, res) => {
 
 export const portfolioPost = async (req, res) => {
     try {
-        const imageUrl = req.file.path; // Assuming the file path is generated after upload
+        // Check if file exists
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded." });
+        }
+
+        const mediaUrl = req.file.path; // Cloudinary URL
         const user = await User.findById(req.user.id);
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
-        // Ensure `portfolio.images` exists as an array, and append the new image
-        if (!user.portfolio.images) {
-            user.portfolio.images = [];
+        // Restrict free users from uploading videos
+        if (!user.isPro && req.file.mimetype.startsWith("video/")) {
+            return res.status(403).json({ message: "Upgrade to Pro to upload videos." });
         }
-        user.portfolio.images.push(imageUrl);
+
+        // Ensure `portfolio.media` exists and add new file
+        if (!user.portfolio.media) {
+            user.portfolio.media = [];
+        }
+        user.portfolio.media.push(mediaUrl);
 
         await user.save();
 
-        res.json({ message: "Image uploaded successfully", url: imageUrl }); // Include the image URL in the response
+        res.json({ message: "Upload successful", url: mediaUrl });
+
     } catch (error) {
-        console.error("Error uploading image:", error);
+        console.error("Error uploading media:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
