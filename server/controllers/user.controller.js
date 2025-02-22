@@ -140,6 +140,41 @@ export const portfolioPost = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
+export const linkMedia = async (req, res) => {
+    try {
+        // Check if file exists
+        if (!req.file) {
+            return res.status(400).json({ message: "No file uploaded." });
+        }
+
+        const mediaUrl = req.file.path; // Cloudinary URL
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Restrict free users from uploading videos and images
+        if (!user.isPro) {
+            return res.status(403).json({ message: "Upgrade to Pro to upload media." });
+        }
+
+        // Ensure `portfolio.media` exists and add new file
+        if (!user.linkMedia) {
+            user.linkMedia = [];
+        }
+
+        user.linkMedia.push(mediaUrl);
+
+        await user.save();
+
+        res.json({ message: "Upload successful", url: mediaUrl });
+
+    } catch (error) {
+        console.error("Error uploading media:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
 
 export const deletePortfolioPost = async (req, res) => {
     try {

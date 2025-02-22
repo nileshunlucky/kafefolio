@@ -26,6 +26,12 @@ router.post('/post', verifyToken, (req, res, next) => {
     }
     upload.single('image')(req, res, next);
 }, portfolioPost);
+router.post('/media', verifyToken, (req, res, next) => {
+    if (!req.user.isPro) {
+        return res.status(403).json({ message: "Upgrade to Pro to upload videos." });
+    }
+    upload.single('image')(req, res, next);
+}, linkMedia);
 router.post('/about', verifyToken, upload.single('image'), aboutUser);
 router.post('/activate-pro', verifyToken, activePro);
 router.put('/aboutme', verifyToken, aboutMe);
