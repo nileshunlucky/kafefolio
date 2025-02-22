@@ -26,7 +26,7 @@ const Dashboard = () => {
         url: ""
       }],
     portfolio: {
-      images: [],
+      media: [],
       theme: {
         color: '',
         backgroundColor: '',
@@ -101,7 +101,7 @@ const Dashboard = () => {
             }
           ],
           portfolio: {
-            images: data.portfolio?.images || prev.portfolio.images,
+            media: data.portfolio?.images || prev.portfolio.media,
             templete: data.portfolio?.templete || prev.portfolio.templete,
             theme: {
               color: data.portfolio?.theme?.color || prev.portfolio.theme.color,
@@ -150,7 +150,7 @@ const Dashboard = () => {
       }
 
       // Get current uploaded images and set the limit based on user type
-      const currentImages = user?.portfolio?.images || [];
+      const currentImages = user?.portfolio?.media || [];
       const maxImages = user?.isPro ? 15 : 5;
 
       if (currentImages.length >= maxImages) {
@@ -196,7 +196,7 @@ const Dashboard = () => {
         ...prev,
         portfolio: {
           ...prev.portfolio,
-          images: [...currentImages, ...uploadedImages], // Merge existing and new images
+          media: [...currentImages, ...uploadedImages], // Merge existing and new images
         },
       }));
 
@@ -209,7 +209,7 @@ const Dashboard = () => {
   const handleDeleteImage = async (index) => {
     try {
       // Get the image URL to delete
-      const imageToDelete = user?.portfolio?.images[index];
+      const imageToDelete = user?.portfolio?.media[index];
 
       // Call the backend to delete the image
       await axios.delete(`https://kafefolio-server.onrender.com/api/user/postDelete`, {
@@ -224,14 +224,14 @@ const Dashboard = () => {
       toast.success("Image deleted!");
 
       // Update the user state with the new images array
-      const updatedImages = [...user?.portfolio.images];
+      const updatedImages = [...user?.portfolio.media];
       updatedImages.splice(index, 1);
 
       setUser((prev) => ({
         ...prev,
         portfolio: {
           ...prev.portfolio,
-          images: updatedImages,
+          media: updatedImages,
         },
       }));
     } catch (error) {
@@ -475,7 +475,7 @@ const Dashboard = () => {
         },
         body: JSON.stringify({
           portfolio: {
-            images: formData.portfolio.images,
+            media: formData.portfolio.media,
             theme: formData.portfolio.theme
           }
         }),
@@ -489,7 +489,7 @@ const Dashboard = () => {
         ...prev,
         portfolio: {
           ...prev.portfolio,
-          images: data.portfolio?.images || prev.portfolio?.images,
+          media: data.portfolio?.media || prev.portfolio?.media,
           theme: {
             color: data.portfolio?.theme?.color || prev.portfolio?.theme?.color,
             backgroundColor: data.portfolio?.theme?.backgroundColor || prev.portfolio?.theme?.backgroundColor,
@@ -737,10 +737,10 @@ const Dashboard = () => {
         {/* Upload Images */}
         <div className="flex flex-col gap-5 bg-[#e1bb80] padding20 rounded-xl">
           {/* Image List */}
-          <h2 className="text-xl font-medium text-[#432818] text-center">Uploaded Images</h2>
+          <h2 className="text-xl font-medium text-[#432818] text-center">Uploaded Images & Videos</h2>
           <div className="grid md:grid-cols-3 grid-cols-2 gap-4 justify-items-center relative">
-            {user?.portfolio.images?.length > 0 ? (
-              user.portfolio.images.map((image, index) => (
+            {user?.portfolio.media?.length > 0 ? (
+              user.portfolio.media.map((media, index) => (
                 <div
                   key={index}
                   className="flex items-center gap-4 rounded-lg relative"
@@ -748,10 +748,10 @@ const Dashboard = () => {
                   {/* Image Preview */}
                   <div className="w-36 h-52 relative">
                     <img
-                      src={image}
+                      src={media}
                       alt={`Uploaded ${index}`}
                       className="object-cover w-full h-full cursor-pointer"
-                      onClick={() => setPreviewImage(image)} // Open preview modal
+                      onClick={() => setPreviewImage(media)} // Open preview modal
                     />
                     {/* Delete Button */}
                     <button
@@ -765,19 +765,19 @@ const Dashboard = () => {
               ))
             ) : (
               <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-sm text-[#432818]">
-                No images uploaded yet.
+                No images or videos uploaded yet.
               </p>
             )}
           </div>
 
           {/* Upload Section */}
-          {user?.portfolio.images.length < (user?.isPro ? 15 : 5) ? (
+          {user?.portfolio.media.length < (user?.isPro ? 15 : 5) ? (
             <label
               className={`flex flex-col items-center gap-2 p-4 border-2 border-dashed border-[#432818] rounded-lg cursor-pointer bg-[#ffe6a7] hover:bg-[#ffd27f] transition-colors duration-300`}
             >
               <i className="fa-solid fa-cloud-arrow-up text-3xl text-[#432818]" />
               <span className="text-sm font-medium text-[#432818]">
-                Click to upload Images
+                Click to upload Images or Videos
               </span>
               <input
                 onChange={handleAddImage}
@@ -790,8 +790,8 @@ const Dashboard = () => {
           ) : (
             <p className="text-sm font-medium text-[#432818] text-center">
               {user?.isPro
-                ? <button className='bg-[#432818] text-[#ffe6a7] w-full rounded-2xl padding20'>You have reached the limit of 15 images.</button>
-                : <><Link to="/admin/upgrade"><button className='bg-[#432818] text-[#ffe6a7] cursor-pointer w-full rounded-2xl padding20'>Upgrade to Pro to upload more than 5 images.</button></Link> </>}
+                ? <button className='bg-[#432818] text-[#ffe6a7] w-full rounded-2xl padding20'>You have reached the limit of 15 images and videos.</button>
+                : <><Link to="/admin/upgrade"><button className='bg-[#432818] text-[#ffe6a7] cursor-pointer w-full rounded-2xl padding20'>Upgrade to Pro to upload more than 5 images and videos.</button></Link> </>}
             </p>
           )}
 
