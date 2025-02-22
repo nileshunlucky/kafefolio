@@ -30,6 +30,12 @@ const Snivy = ({ user }) => {
     },
   };
 
+  const isVideo = (file) => {
+    const videoExtensions = ["mp4", "webm", "ogg", "mov", "avi", "mkv", "flv", "wmv", "m4v"];
+    const fileExtension = file?.split(".").pop().toLowerCase();
+    return videoExtensions.includes(fileExtension);
+  };
+
   return (
     <motion.div
       className="flex flex-col justify-center items-center min-h-screen padding20 relative overflow-hidden"
@@ -55,21 +61,30 @@ const Snivy = ({ user }) => {
         animate="visible"
         variants={gridVariants}
       >
-        {user?.portfolio?.images && user?.portfolio?.images.length > 0 ? (
-          user?.portfolio?.images.map((image, index) => (
+        {user?.portfolio?.media && user?.portfolio?.media.length > 0 ? (
+          user?.portfolio?.media.map((media, index) => (
             <motion.div
               key={index}
-              className="relative w-full h-64 overflow-hidden shadow-lg"
+              className="relative w-full md:h-screen overflow-hidden shadow-lg"
               variants={imageVariants}
               whileHover={imageVariants.hover}
             >
-              <motion.img
-                ref={(el) => (imageRefs.current[index] = el)}
-                src={image}
-                alt={`Portfolio ${index}`}
-                className="w-full h-full md:object-contain object-cover "
-                whileHover={{ scale: 1.1 }}
-              />
+              {isVideo(media) ? (
+                <motion.video
+                  src={media}
+                  muted
+                  loop
+                  autoPlay
+                  className="w-full h-full md:object-cover object-contain"
+                />
+              ) : (
+                <motion.img
+                  src={media}
+                  alt={`Portfolio ${index}`}
+                  className="w-full h-full md:object-cover object-contain hover:scale-105 transition-transform duration-500"
+                  whileHover={{ scale: 1.1 }}
+                />
+              )}
             </motion.div>
           ))
         ) : (

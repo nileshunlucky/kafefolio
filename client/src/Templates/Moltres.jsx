@@ -35,6 +35,13 @@ const Moltres = ({ user }) => {
     visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.3, duration: 1 } },
   };
 
+  // Function to check if a media file is a video
+  const isVideo = (file) => {
+    const videoExtensions = ["mp4", "webm", "ogg", "mov", "avi", "mkv", "flv", "wmv", "m4v"];
+    const fileExtension = file?.split(".").pop().toLowerCase();
+    return videoExtensions.includes(fileExtension);
+  };
+
   return (
     <div
       className="flex flex-col items-center min-h-screen padding20"
@@ -46,16 +53,16 @@ const Moltres = ({ user }) => {
       }}
     >
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl"
+        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 w-full max-w-5xl"
         initial="hidden"
         animate="visible"
         variants={gridVariants}
       >
-        {user?.portfolio?.images?.length > 0 ? (
-          user.portfolio.images.map((image, index) => (
+        {user?.portfolio?.media?.length > 0 ? (
+          user?.portfolio?.media.map((media, index) => (
             <motion.div
               key={index}
-              className="relative w-full h-72 rounded-lg overflow-hidden shadow-lg cursor-pointer"
+              className="relative w-full md:h-80 rounded-lg overflow-hidden shadow-lg cursor-pointer"
               variants={fireEffectVariants}
               whileHover={{
                 scale: 1.05,
@@ -64,11 +71,21 @@ const Moltres = ({ user }) => {
               }}
               whileTap="click"
             >
-              <motion.img
-                src={image}
-                alt={`Portfolio ${index}`}
-                className="w-full h-full object-cover"
-              />
+              {isVideo(media) ? (
+                <motion.video
+                  src={media}
+                  muted
+                  loop
+                  autoPlay
+                  className="w-full h-full md:object-cover object-contain"
+                />
+              ) : (
+                <motion.img
+                  src={media}
+                  alt={`Portfolio ${index}`}
+                  className="w-full h-full md:object-cover object-contain"
+                />
+              )}
             </motion.div>
           ))
         ) : (
@@ -78,7 +95,7 @@ const Moltres = ({ user }) => {
             animate={{ opacity: 1, transition: { duration: 0.5 } }}
             style={{ color: user?.portfolio?.theme?.color || "#fff" }}
           >
-            No images available
+            No media available
           </motion.p>
         )}
       </motion.div>

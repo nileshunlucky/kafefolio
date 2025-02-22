@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const Frozen = ({ user }) => {
-  const [frozenImages, setFrozenImages] = useState({}); // Track frozen state of images
+  const [frozenImages, setFrozenImages] = useState({});
 
   const toggleFreeze = (index) => {
     setFrozenImages((prev) => ({
       ...prev,
-      [index]: !prev[index], // Toggle freeze state for the tapped image
+      [index]: !prev[index],
     }));
   };
 
@@ -18,7 +18,7 @@ const Frozen = ({ user }) => {
   };
 
   const freezeVariants = {
-    frozen: { filter: "blur(3px) grayscale(0.7) brightness(0.6)", scale: 0.95 },
+    frozen: { filter: "blur(3px) brightness(0.5)" },
     normal: { filter: "none", scale: 1 },
   };
 
@@ -36,92 +36,72 @@ const Frozen = ({ user }) => {
         fontFamily: user?.portfolio?.theme?.font || "Snowburst One, cursive",
       }}
     >
-      {/* Snowfall Background */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="snow"></div>
-        <div className="snow snow2"></div>
-      </div>
+      {/* Cool Freezing Background Animation */}
+      <motion.div
+        className="absolute inset-0 bg-blue-900"
+        initial={{ opacity: 0.2 }}
+        animate={{
+          opacity: [0.2, 0.4, 0.3, 0.5],
+          filter: ["blur(4px)", "blur(6px)", "blur(3px)"],
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          repeatType: "reverse",
+        }}
+      />
 
       <motion.div
-        className="grid gap-5 w-full max-w-7xl z-10"
+        className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-7xl z-10"
         initial="hidden"
         animate="visible"
         variants={gridVariants}
       >
-        {user?.portfolio?.images && user?.portfolio?.images.length > 0 ? (
-          user?.portfolio?.images.map((image, index) => {
-            if (index % 3 === 0) {
-              return (
+        {user?.portfolio?.media?.length > 0 ? (
+          user?.portfolio?.media.map((media, index) => (
+            <motion.div
+              key={index}
+              className="w-full md:h-96 overflow-hidden shadow-lg relative rounded-lg"
+              variants={imageVariants}
+              initial="hidden"
+              animate="visible"
+              whileHover={!frozenImages[index] && imageVariants.hover}
+              onTap={() => toggleFreeze(index)}
+            >
+              {/\.(mp4|mov|avi|webm)$/i.test(media) ? (
+                <motion.video
+                  src={media}
+                  muted
+                  autoPlay
+                  loop
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <motion.img
+                  src={media}
+                  alt={`Portfolio ${index}`}
+                  className="w-full h-full object-cover"
+                  variants={freezeVariants}
+                  animate={frozenImages[index] ? "frozen" : "normal"}
+                />
+              )}
+
+              {frozenImages[index] && (
                 <motion.div
-                  key={index}
-                  className="w-full md:h-96 overflow-hidden shadow-lg relative rounded-lg"
-                  variants={imageVariants}
-                  initial="hidden"
-                  animate="visible"
-                  whileHover={!frozenImages[index] && imageVariants.hover}
-                  onTap={() => toggleFreeze(index)}
-                >
-                  <motion.img
-                    src={image}
-                    alt={`Portfolio ${index}`}
-                    className="w-full h-full object-cover"
-                    variants={freezeVariants}
-                    animate={frozenImages[index] ? "frozen" : "normal"}
-                  />
-                  {frozenImages[index] && (
-                    <motion.div
-                      className="absolute inset-0 bg-blue-300/40 backdrop-blur-sm flex justify-center items-center "
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                    />
-                  )}
-                </motion.div>
-              );
-            }
-
-            if (index % 3 === 1) {
-              const smallImages = user?.portfolio?.images.slice(index, index + 2);
-              return (
-                <div key={`grid-${index}`} className="grid grid-cols-2 gap-3">
-                  {smallImages.map((smallImage, subIndex) => (
-                    <motion.div
-                      key={`${index}-${subIndex}`}
-                      className="md:h-96 w-full overflow-hidden shadow-lg rounded-lg relative"
-                      variants={imageVariants}
-                      initial="hidden"
-                      animate="visible"
-                      whileHover={!frozenImages[index + subIndex] && imageVariants.hover}
-                      onTap={() => toggleFreeze(index + subIndex)}
-                    >
-                      <motion.img
-                        src={smallImage}
-                        alt={`Portfolio ${index + subIndex}`}
-                        className="w-full h-full object-cover"
-                        variants={freezeVariants}
-                        animate={frozenImages[index + subIndex] ? "frozen" : "normal"}
-                      />
-                      {frozenImages[index + subIndex] && (
-                        <motion.div
-                          className="absolute inset-0 bg-blue-300/40 backdrop-blur-sm flex justify-center items-center rounded-lg"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                        />
-                      )}
-                    </motion.div>
-                  ))}
-                </div>
-              );
-            }
-
-            return null; // Skip unnecessary rendering
-          })
+                  className="absolute inset-0 bg-blue-300/40 backdrop-blur-sm flex justify-center items-center"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                />
+              )}
+            </motion.div>
+          ))
         ) : (
           <motion.p
             className="text-center text-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 0.5 } }}
           >
-            No images available
+            No media available
           </motion.p>
         )}
       </motion.div>

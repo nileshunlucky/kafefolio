@@ -2,31 +2,40 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const Kafefolio = ({ user }) => {
-  const imageVariants = {
+  const mediaVariants = {
     hidden: { opacity: 0, scale: 0.9 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
   };
 
   return (
-    <div
-      className="flex justify-center items-center min-h-screen bg-gradient-to-b from-[#432818] to-[#a86a3d]">
-      {user?.portfolio?.images?.length === 1 ? (
-        // Single Image: Full screen height
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-[#432818] to-[#a86a3d]">
+      {user?.portfolio?.media?.length === 1 ? (
+        // Single Media: Full screen height
         <motion.div
           className="w-full h-screen overflow-hidden"
           initial="hidden"
           animate="visible"
-          variants={imageVariants}
+          variants={mediaVariants}
         >
-          <motion.img
-            src={user?.portfolio?.images[0]}
-            alt="Portfolio"
-            className="w-full h-full object-cover"
-            whileHover={{ scale: 1.1 }}
-          />
+          {user?.portfolio?.media[0]?.endsWith(".mp4") ? (
+            <motion.video
+              src={user?.portfolio?.media[0]}
+              className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+            />
+          ) : (
+            <motion.img
+              src={user?.portfolio?.media[0]}
+              alt="Portfolio"
+              className="w-full h-full object-cover"
+              whileHover={{ scale: 1.1 }}
+            />
+          )}
         </motion.div>
       ) : (
-        // Multiple Images: Grid layout
+        // Multiple Media: Grid layout
         <motion.div
           className="grid md:grid-cols-3 grid-cols-1 gap-3 max-w-7xl padding10"
           initial="hidden"
@@ -36,19 +45,29 @@ const Kafefolio = ({ user }) => {
             visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
           }}
         >
-          {user?.portfolio?.images && user?.portfolio?.images.length > 0 ? (
-            user?.portfolio?.images.map((image, index) => (
+          {user?.portfolio?.media && user?.portfolio?.media.length > 0 ? (
+            user?.portfolio?.media.map((media, index) => (
               <motion.div
                 key={index}
                 className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-500"
-                variants={imageVariants}
+                variants={mediaVariants}
               >
-                <motion.img
-                  src={image}
-                  alt={`Portfolio ${index}`}
-                  className="w-full h-full md:object-cover object-contain"
-                  whileHover={{ scale: 1.1 }}
-                />
+                {media.endsWith(".mp4") ? (
+                  <motion.video
+                    src={media}
+                    className="w-full h-full md:object-cover object-contain"
+                    autoPlay
+                    loop
+                    muted
+                  />
+                ) : (
+                  <motion.img
+                    src={media}
+                    alt={`Portfolio ${index}`}
+                    className="w-full h-full md:object-cover object-contain"
+                    whileHover={{ scale: 1.1 }}
+                  />
+                )}
               </motion.div>
             ))
           ) : (
@@ -58,7 +77,7 @@ const Kafefolio = ({ user }) => {
               animate={{ opacity: 1, transition: { duration: 0.5 } }}
               style={{ color: user?.portfolio?.theme?.color }}
             >
-              No images available
+              No media available
             </motion.p>
           )}
         </motion.div>

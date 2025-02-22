@@ -15,24 +15,42 @@ const Cloyster = ({ user }) => {
     setTimeout(() => setClickedIndex(null), 1000);
   };
 
+  // Function to check if media is a video
+  const isVideo = (file) => {
+    if (!file) return false;
+    const videoExtensions = ["mp4", "webm", "ogg", "mov", "avi", "mkv", "flv", "wmv", "m4v"];
+    return videoExtensions.includes(file.split(".").pop().toLowerCase());
+  };
+
   return (
-    <div className="shiny-bg min-h-screen flex flex-col items-center justify-center p-10">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-5xl w-full">
-        {user?.portfolio?.images?.map((image, index) => (
+    <div className="shiny-bg min-h-screen flex flex-col items-center justify-center padding10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 max-w-5xl w-full">
+        {user?.portfolio?.media?.map((media, index) => (
           <motion.div
             key={index}
-            className="relative w-full h-64 overflow-hidden shadow-lg cursor-pointer"
+            className="relative w-full overflow-hidden shadow-lg cursor-pointer"
             initial="hidden"
             animate="visible"
             variants={imageVariants}
             whileHover={imageVariants.hover}
             onClick={() => shineEffect(index)}
           >
-            <motion.img
-              src={image}
-              alt={`Portfolio ${index}`}
-              className="w-full h-full object-cover"
-            />
+            {isVideo(media) ? (
+              <motion.video
+                src={media}
+                muted
+                autoPlay
+                loop
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <motion.img
+                src={media}
+                alt={`Portfolio ${index}`}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                whileHover={{ scale: 1.1 }}
+              />
+            )}
             {clickedIndex === index && (
               <motion.div
                 className="absolute inset-0 shine-effect"

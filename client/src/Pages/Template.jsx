@@ -8,7 +8,7 @@ const Template = () => {
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
     portfolio: {
-      images: [],
+      media: [],
       template: "",
       theme: {
         color: "",
@@ -86,7 +86,7 @@ const Template = () => {
         setUser(data);
         setFormData({
           portfolio: {
-            images: data.portfolio?.images || [],
+            media: data.portfolio?.media || [],
             template: data.portfolio?.template || "",
             theme: data.portfolio?.theme || {
               color: "",
@@ -110,7 +110,7 @@ const Template = () => {
       setFormData({
         portfolio: {
           ...formData.portfolio,
-          images: formData.portfolio.images,
+          media: formData.portfolio.media,
           template: templateName,
           theme: newTheme,
         },
@@ -125,7 +125,7 @@ const Template = () => {
         },
         body: JSON.stringify({
           portfolio: {
-            images: formData.portfolio.images,
+            media: formData.portfolio.media,
             template: templateName,
             theme: newTheme,
           },
@@ -140,7 +140,7 @@ const Template = () => {
         ...prev,
         portfolio: {
           ...prev.portfolio,
-          images: formData.portfolio.images,
+          media: formData.portfolio.media,
           template: templateName,
           theme: newTheme,
         },

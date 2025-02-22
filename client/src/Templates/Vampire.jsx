@@ -13,6 +13,13 @@ const Vampire = ({ user }) => {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, staggerChildren: 0.3 } },
   };
 
+
+  const isVideo = (file) => {
+    const videoExtensions = ["mp4", "webm", "ogg", "mov", "avi", "mkv", "flv", "wmv", "m4v"];
+    const fileExtension = file?.split(".").pop().toLowerCase();
+    return videoExtensions.includes(fileExtension);
+  };
+
   return (
     <div
       className="flex flex-col justify-center items-center min-h-screen padding10"
@@ -29,45 +36,65 @@ const Vampire = ({ user }) => {
         animate="visible"
         variants={gridVariants}
       >
-        {user?.portfolio?.images && user?.portfolio?.images.length > 0 ? (
-          user?.portfolio?.images.map((image, index) => {
+        {user?.portfolio?.media && user?.portfolio?.media.length > 0 ? (
+          user?.portfolio?.media.map((media, index) => {
             // Large single image
             if (index % 3 === 0) {
               return (
                 <motion.div
                   key={index}
-                  className="w-full h-96 overflow-hidden shadow-lg"
+                  className="w-full md:h-screen overflow-hidden shadow-lg"
                   variants={imageVariants}
                   whileHover={imageVariants.hover}
                 >
-                  <motion.img
-                    src={image}
-                    alt={`Portfolio ${index}`}
-                    className="w-full h-full md:object-contain object-cover"
-                    whileHover={{ scale: 1.1 }}
-                  />
+                  {isVideo(media) ? (
+                    <motion.video
+                      src={media}
+                      muted
+                      loop
+                      autoPlay
+                      className="w-full h-full  object-contain"
+                    />
+                  ) : (
+                    <motion.img
+                      src={media}
+                      alt={`Portfolio ${index}`}
+                      className="w-full h-full  object-contain hover:scale-105 transition-transform duration-500"
+                      whileHover={{ scale: 1.1 }}
+                    />
+                  )}
                 </motion.div>
               );
             }
 
             // Grid of 2 smaller images
             if (index % 3 === 1) {
-              const smallImages = user?.portfolio?.images.slice(index, index + 2);
+              const smallImages = user?.portfolio?.media.slice(index, index + 2);
               return (
                 <div key={`grid-${index}`} className="grid grid-cols-2 gap-3">
-                  {smallImages.map((smallImage, subIndex) => (
+                  {smallImages.map((media, subIndex) => (
                     <motion.div
                       key={index + subIndex}
-                      className="h-48 overflow-hidden shadow-lg"
+                      className="md:h-screen overflow-hidden shadow-lg"
                       variants={imageVariants}
                       whileHover={imageVariants.hover}
                     >
-                      <motion.img
-                        src={smallImage}
-                        alt={`Portfolio ${index + subIndex}`}
-                        className="w-full h-full md:object-contain object-cover"
-                        whileHover={{ scale: 1.1 }}
-                      />
+                      {isVideo(media) ? (
+                        <motion.video
+                          src={media}
+                          muted
+                          loop
+                          autoPlay
+                          className="w-full h-full object-contain"
+                        />
+                      ) : (
+                        <motion.img
+                          src={media}
+                          alt={`Portfolio ${index}`}
+                          className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+                          whileHover={{ scale: 1.1 }}
+                        />
+                      )}
                     </motion.div>
                   ))}
                 </div>
@@ -83,7 +110,7 @@ const Vampire = ({ user }) => {
             animate={{ opacity: 1, transition: { duration: 0.5 } }}
             style={{ color: user?.portfolio?.theme?.color || "#fff" }}
           >
-            No images available
+            No images or videos available
           </motion.p>
         )}
       </motion.div>
