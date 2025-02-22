@@ -111,8 +111,13 @@ const Links = () => {
         color: user?.portfolio?.theme?.color
       }}
     >
+      {
+        user?.linkMedia && (
+          <img className='absolute w-full h-screen object-cover' src={user?.linkMedia} alt="wallpaper" />
+        )
+      }
       <Toaster />
-      <div className="md:w-1/2 w-[90%] flex flex-col gap-5 marginy">
+      <div className="md:w-1/2 w-[90%] flex flex-col gap-5 marginy z-50">
         {/* Share */}
         <div className="flex justify-end cursor-pointer">
           <i onClick={() => setShare(!share)} className="fa-solid fa-ellipsis  paddingo rounded-full "

@@ -38,7 +38,7 @@ const Nav = ({ user }) => {
 
   return (
     <nav
-      className={`flex justify-between items-center padding20`}
+      className={`flex justify-between items-center padding20 z-50`}
       style={{ backgroundColor: user?.portfolio.theme.color, color: user?.portfolio.theme.backgroundColor, fontFamily: user?.portfolio.theme.font }}>
       <Link to={`/${user.username}`}>
         <h1
@@ -51,7 +51,7 @@ const Nav = ({ user }) => {
 
       {/* Desktop Menu */}
       <ul
-        className={`hidden md:flex items-center gap-5 text-lg`}
+        className={`hidden md:flex items-center gap-5 text-lg z-50`}
       // text-lg tracking-wide
       >
         <Link style={{ fontFamily: user?.portfolio.theme.font }} to={`/${user.username}`}>Home</Link>
