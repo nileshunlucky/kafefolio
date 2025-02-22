@@ -764,7 +764,7 @@ const Dashboard = () => {
                 </div>
               ))
             ) : (
-              <p className=" text-right w-[310%] text-sm text-[#432818]">
+              <p className=" text-right md:w-[310%] w-[215%] text-sm text-[#432818]">
                 No images uploaded yet.
               </p>
             )}
