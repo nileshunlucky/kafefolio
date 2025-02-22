@@ -508,7 +508,7 @@ const Dashboard = () => {
   return (
     <div className='flex justify-center items-center md:h-auto min-h-screen scroll-smooth overflow-hidden'>
       <Toaster />
-      <div className="md:w-[60%] flex flex-col gap-12 marginb padding20">
+      <div className="md:w-[60%] w-[90%] flex flex-col gap-12 marginb paddingt">
         {/* Profile */}
         <div className="flex flex-col gap-3 bg-[#e1bb80] padding20 rounded-xl">
           <div className="flex justify-between gap-3 items-center">
