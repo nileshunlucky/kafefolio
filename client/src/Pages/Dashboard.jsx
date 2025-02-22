@@ -308,7 +308,7 @@ const Dashboard = () => {
       // Update the user state with the new Media
       setUser((prev) => ({
         ...prev,
-        linkMedia: res.url
+        linkMedia: res.data.url
       }));
 
     } catch (error) {
