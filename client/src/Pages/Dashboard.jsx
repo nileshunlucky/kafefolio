@@ -43,11 +43,11 @@ const Dashboard = () => {
   const [addSocial, setAddSocial] = useState(false);
   const [addCategory, setAddCategory] = useState(false);
   const [addLinks, setAddLinks] = useState(false);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [previewMedia, setPreviewMedia] = useState(null);
 
 
   useEffect(() => {
-    const shouldHideOverflow = nameBio || addCategory || addSocial || addLinks || previewImage;
+    const shouldHideOverflow = nameBio || addCategory || addSocial || addLinks || previewMedia;
 
     if (shouldHideOverflow) {
       document.body.classList.add("overflow-hidden");
@@ -59,7 +59,7 @@ const Dashboard = () => {
     return () => {
       document.body.classList.remove("overflow-hidden");
     };
-  }, [nameBio, addCategory, addSocial, addLinks, previewImage]);
+  }, [nameBio, addCategory, addSocial, addLinks, previewMedia]);
 
 
   useEffect(() => {
@@ -206,14 +206,14 @@ const Dashboard = () => {
     }
   };
 
-  const handleDeleteImage = async (index) => {
+  const handleDeleteMedia = async (index) => {
     try {
       // Get the image URL to delete
-      const imageToDelete = user?.portfolio?.media[index];
+      const mediaToDelete = user?.portfolio?.media[index];
 
       // Call the backend to delete the image
       await axios.delete(`https://kafefolio-server.onrender.com/api/user/postDelete`, {
-        data: { imageUrl: imageToDelete },
+        data: { mediaUrl: mediaToDelete },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
@@ -221,17 +221,17 @@ const Dashboard = () => {
       });
 
       // Success feedback
-      toast.success("Image deleted!");
+      toast.success("Media deleted!");
 
       // Update the user state with the new images array
-      const updatedImages = [...user?.portfolio.media];
-      updatedImages.splice(index, 1);
+      const updatedMedia = [...user?.portfolio.media];
+      updatedMedia.splice(index, 1);
 
       setUser((prev) => ({
         ...prev,
         portfolio: {
           ...prev.portfolio,
-          media: updatedImages,
+          media: updatedMedia,
         },
       }));
     } catch (error) {
@@ -734,9 +734,9 @@ const Dashboard = () => {
           )}
         </div>
 
-        {/* Upload Images */}
+        {/* Upload Media */}
         <div className="flex flex-col gap-5 bg-[#e1bb80] padding20 rounded-xl">
-          {/* Image List */}
+          {/* Media List */}
           <h2 className="text-xl font-medium text-[#432818] text-center">Uploaded Images & Videos</h2>
           <div className="grid md:grid-cols-3 grid-cols-2 gap-4 justify-items-center relative">
             {user?.portfolio.media?.length > 0 ? (
@@ -745,17 +745,28 @@ const Dashboard = () => {
                   key={index}
                   className="flex items-center gap-4 rounded-lg relative"
                 >
-                  {/* Image Preview */}
+                  {/* Media Preview (Image or Video) */}
                   <div className="w-36 h-52 relative">
-                    <img
-                      src={media}
-                      alt={`Uploaded ${index}`}
-                      className="object-cover w-full h-full cursor-pointer"
-                      onClick={() => setPreviewImage(media)} // Open preview modal
-                    />
+                    {media.includes("video") ? (
+                      <video
+                        src={media}
+                        className="object-cover w-full h-full cursor-pointer"
+                        onClick={() => setPreviewMedia(media)} // Open preview modal
+                        muted
+                        autoPlay
+                        loop
+                      />
+                    ) : (
+                      <img
+                        src={media}
+                        alt={`Uploaded ${index}`}
+                        className="object-cover w-full h-full cursor-pointer"
+                        onClick={() => setPreviewMedia(media)} // Open preview modal
+                      />
+                    )}
                     {/* Delete Button */}
                     <button
-                      onClick={() => handleDeleteImage(index)}
+                      onClick={() => handleDeleteMedia(index)}
                       className="text-[#ffe6a7] text-xl absolute top-3 right-3 cursor-pointer"
                     >
                       <i className="fa-solid fa-trash" />
@@ -764,16 +775,16 @@ const Dashboard = () => {
                 </div>
               ))
             ) : (
-              <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-sm text-[#432818]">
-                No images or videos uploaded yet.
-              </p>
+            <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-sm text-[#432818]">
+              No media uploaded yet.
+            </p>
             )}
           </div>
 
           {/* Upload Section */}
           {user?.portfolio.media.length < (user?.isPro ? 15 : 5) ? (
             <label
-              className={`flex flex-col items-center gap-2 p-4 border-2 border-dashed border-[#432818] rounded-lg cursor-pointer bg-[#ffe6a7] hover:bg-[#ffd27f] transition-colors duration-300`}
+              className="flex flex-col items-center gap-2 p-4 border-2 border-dashed border-[#432818] rounded-lg cursor-pointer bg-[#ffe6a7] hover:bg-[#ffd27f] transition-colors duration-300"
             >
               <i className="fa-solid fa-cloud-arrow-up text-3xl text-[#432818]" />
               <span className="text-sm font-medium text-[#432818]">
@@ -782,31 +793,49 @@ const Dashboard = () => {
               <input
                 onChange={handleAddImage}
                 type="file"
-                accept="image/*"
+                accept="image/*,video/*"
                 className="hidden"
                 multiple
               />
             </label>
           ) : (
             <p className="text-sm font-medium text-[#432818] text-center">
-              {user?.isPro
-                ? <button className='bg-[#432818] text-[#ffe6a7] w-full rounded-2xl padding20'>You have reached the limit of 15 images and videos.</button>
-                : <><Link to="/admin/upgrade"><button className='bg-[#432818] text-[#ffe6a7] cursor-pointer w-full rounded-2xl padding20'>Upgrade to Pro to upload more than 5 images and videos.</button></Link> </>}
+              {user?.isPro ? (
+                <button className="bg-[#432818] text-[#ffe6a7] w-full rounded-2xl padding20">
+                  You have reached the limit of 15 images and videos.
+                </button>
+              ) : (
+                <Link to="/admin/upgrade">
+                  <button className="bg-[#432818] text-[#ffe6a7] cursor-pointer w-full rounded-2xl padding20">
+                    Upgrade to Pro to upload more than 5 images and videos.
+                  </button>
+                </Link>
+              )}
             </p>
           )}
 
-          {/* Image Preview Modal */}
-          {previewImage && (
+          {/* Media Preview Modal */}
+          {previewMedia && (
             <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
               <div className="relative">
-                <img
-                  src={previewImage}
-                  alt="Preview"
-                  className="max-w-[90vw] max-h-[90vh] rounded-md shadow-lg"
-                />
+                {previewMedia.includes("video") ? (
+                  <video
+                    src={previewMedia}
+                    muted
+                    autoPlay
+                    loop
+                    className="max-w-[90vw] max-h-[90vh] rounded-md shadow-lg"
+                  />
+                ) : (
+                  <img
+                    src={previewMedia}
+                    alt="Preview"
+                    className="max-w-[90vw] max-h-[90vh] rounded-md shadow-lg"
+                  />
+                )}
                 {/* Close Button */}
                 <button
-                  onClick={() => setPreviewImage(null)} // Close modal
+                  onClick={() => setPreviewMedia(null)} // Close modal
                   className="absolute top-3 right-3 text-[#ffe6a7] text-2xl font-bold cursor-pointer"
                 >
                   <i className="fa-solid fa-xmark" />
@@ -1006,7 +1035,7 @@ const Dashboard = () => {
 
       {/* Preview */}
       {
-        !previewImage && (
+        !previewMedia && (
           <Link to={`/${user?.username}`}>
             <button className='bg-[#432818] text-[#ffe6a7] fixed text-center md:left-[50%] left-[33%] bottom-20 paddingy rounded-full cursor-pointer z-50'>Preview</button>
           </Link>

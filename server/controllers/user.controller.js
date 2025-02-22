@@ -143,7 +143,7 @@ export const portfolioPost = async (req, res) => {
 
 export const deletePortfolioPost = async (req, res) => {
     try {
-        const { imageUrl } = req.body; // Get the image URL from the request body
+        const { mediaUrl } = req.body; // Get the image URL from the request body
         const user = await User.findById(req.user.id);
 
         if (!user) {
@@ -151,8 +151,8 @@ export const deletePortfolioPost = async (req, res) => {
         }
 
         // Remove the image from the user's portfolio
-        user.portfolio.images = user.portfolio.images.filter(
-            (image) => image !== imageUrl
+        user.portfolio.media = user.portfolio.media.filter(
+            (media) => media !== mediaUrl
         );
 
         await user.save();
