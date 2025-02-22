@@ -523,7 +523,7 @@ const Dashboard = () => {
                   {user?.name}
                   {
                     user?.isPro && (
-                      <img className='w-6 object-contain' src="/blueTick.png" alt="pro" />
+                      <img className='w-6 object-contain md:flex hidden' src="/blueTick.png" alt="pro" />
                     )
                   }
                 </h1>
@@ -764,7 +764,7 @@ const Dashboard = () => {
                 </div>
               ))
             ) : (
-              <p className="text-center text-sm text-[#432818]">
+              <p className=" text-right w-[310%] text-sm text-[#432818]">
                 No images uploaded yet.
               </p>
             )}
