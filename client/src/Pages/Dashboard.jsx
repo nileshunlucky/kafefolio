@@ -738,7 +738,7 @@ const Dashboard = () => {
         <div className="flex flex-col gap-5 bg-[#e1bb80] padding20 rounded-xl">
           {/* Image List */}
           <h2 className="text-xl font-medium text-[#432818] text-center">Uploaded Images</h2>
-          <div className="grid md:grid-cols-3 grid-cols-2 gap-4 justify-items-center">
+          <div className="grid md:grid-cols-3 grid-cols-2 gap-4 justify-items-center relative">
             {user?.portfolio.images?.length > 0 ? (
               user.portfolio.images.map((image, index) => (
                 <div
@@ -764,7 +764,7 @@ const Dashboard = () => {
                 </div>
               ))
             ) : (
-              <p className=" text-right md:w-[310%] w-[215%] text-sm text-[#432818]">
+              <p className="fixed text-center md:top-[43%] top-[40%] text-sm text-[#432818]">
                 No images uploaded yet.
               </p>
             )}
