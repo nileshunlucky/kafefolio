@@ -965,11 +965,28 @@ const Dashboard = () => {
               <label className='w-full flex justify-center items-center'>
                 {
                   user?.linkMedia ? (
-                    <img className='w-full h-full rounded-xl object-contain cursor-pointer'
-                      src={user?.linkMedia} alt="pic" />
+                    <>
+                      {
+                        user?.linkMedia.includes("video") ? (
+                          <video
+                            src={user?.linkMedia}
+                            muted
+                            autoPlay
+                            loop
+                            className="w-full h-full rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer"
+                          />
+                        ) : (
+                          <img
+                            src={user?.linkMedia}
+                            alt="Preview"
+                            className="w-full h-full rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer"
+                          />
+                        )
+                      }
+                    </>
                   ) : (
                     <div className='w-full md:h-24 h-20 rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer'>
-                     <p className='text-[#ffe6a7] text-sm'>Upload Background Media</p>
+                      <p className='text-[#ffe6a7] text-sm'>Upload Background Media</p>
                     </div>
                   )
                 }

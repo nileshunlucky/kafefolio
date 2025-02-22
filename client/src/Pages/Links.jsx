@@ -113,7 +113,25 @@ const Links = () => {
     >
       {
         user?.linkMedia && (
-          <img className='absolute w-full h-screen object-cover' src={user?.linkMedia} alt="wallpaper" />
+          <>
+            {
+              user?.linkMedia.includes("video") ? (
+                <video
+                  src={user?.linkMedia}
+                  muted
+                  autoPlay
+                  loop
+                  className="w-full absolute h-screen object-cover"
+                />
+              ) : (
+                <img
+                  src={user?.linkMedia}
+                  alt="Preview"
+                  className="w-full absolute h-screen object-cover"
+                />
+              )
+            }
+          </>
         )
       }
       <Toaster />
