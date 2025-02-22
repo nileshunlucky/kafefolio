@@ -965,7 +965,7 @@ const Dashboard = () => {
               <label className='w-full flex justify-center items-center'>
                 {
                   user?.linkMedia ? (
-                    <img className='md:w-24 w-20 md:h-24 h-20 rounded-full object-cover cursor-pointer'
+                    <img className='w-full h-full rounded-xl object-contain cursor-pointer'
                       src={user?.linkMedia} alt="pic" />
                   ) : (
                     <div className='w-full md:h-24 h-20 rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer'>
