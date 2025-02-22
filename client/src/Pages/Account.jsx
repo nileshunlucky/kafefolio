@@ -8,9 +8,10 @@ const Account = () => {
   const [formData, setFormData] = useState({ name: "", email: "", username: "" });
   const [username, setUsername] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
+  const [share, setShare] = useState(false);
 
   useEffect(() => {
-    const shouldHideOverflow = username || deleteAccount
+    const shouldHideOverflow = username || deleteAccount || share;
 
     if (shouldHideOverflow) {
       document.body.classList.add("overflow-hidden");
@@ -22,7 +23,7 @@ const Account = () => {
     return () => {
       document.body.classList.remove("overflow-hidden");
     };
-  }, [username, deleteAccount]);
+  }, [username, deleteAccount, share]);
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -168,6 +169,129 @@ const Account = () => {
     <div className='flex justify-center items-center'>
       <Toaster />
       <div className="md:w-[60%] flex flex-col gap-12 md:marginy marginb padding20">
+        {/* share button */}
+        <button onClick={() => setShare(!share)} className="fixed top-3 right-5 cursor-pointer padding10">
+          <i className="fa-solid fa-share text-3xl text-[#432818]" />
+        </button>
+        {
+          share && (
+            <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex justify-center items-center z-50">
+              <div className="flex flex-col gap-5 padding20 rounded-xl shadow-lg w-[80%] md:w-[40%]
+              bg-[#e1bb80] text-[#432818]">
+                {/* Header */}
+                <div className="flex justify-center items-center relative">
+                  <div className=""></div>
+                  <h1 className="text-xl font-medium text-center whitespace-nowrap">Share Kafefolio</h1>
+                  <i onClick={() => setShare(!share)} className="fa-solid fa-x text-sm padding10 absolute right-0" />
+                </div>
+
+                {/* Profile */}
+                <div className="flex flex-col gap-3 justify-center items-center">
+                  <img className='w-24 h-24 object-cover rounded-full' src={user?.profilePic} alt="pic" />
+                  <div className="flex items-center gap-2">
+                    <p>@{user?.username}</p>
+                    {
+                      user?.isPro && (
+                        <img className='w-5' src="/blueTick.png" alt="" />
+                      )
+                    }
+                  </div>
+                </div>
+
+                {/* Social Media */}
+                <div className="">
+                  <div className="flex gap-5 items-center overflow-x-scroll overflow-y-hidden noscrollbar scroll-smooth padding10">
+                    {/* Copy Link */}
+                    <div onClick={() => navigator.clipboard.writeText(`https://kafefolio.vercel.app/${user?.username}`)} className="flex flex-col items-center justify-center gap-2">
+                      <div className="">
+                        <i className="fa-solid fa-link bg-black text-white paddingo rounded-full" />
+                      </div>
+                      <div className="">
+                        <p className="text-sm font-medium whitespace-nowrap">Copy link</p>
+                      </div>
+                    </div>
+
+                    {/* Whatsapp */}
+                    <div onClick={() => window.open(`https://wa.me/?text=${`https://kafefolio.vercel.app/${user?.username}`}`)} className="flex flex-col items-center justify-center gap-2">
+                      <div className="">
+                        <i className="fa-brands fa-whatsapp bg-green-500 text-white text-2xl padding10 rounded-full" />
+                      </div>
+                      <div className="">
+                        <p className="text-sm font-medium">WhatsApp</p>
+                      </div>
+                    </div>
+
+                    {/* Facebook */}
+                    <div onClick={() => window.open(`https://www.facebook.com/sharer/sharer.php?u=${`https://kafefolio.vercel.app/${user?.username}`}`)} className="flex flex-col items-center justify-center gap-2">
+                      <div className="">
+                        <i className="fa-brands fa-facebook bg-blue-500 text-white text-2xl padding10 rounded-full" />
+                      </div>
+                      <div className="">
+                        <p className="text-sm font-medium">Facebook</p>
+                      </div>
+                    </div>
+
+                    {/* Instagram */}
+                    <div onClick={() => window.open(`https://www.instagram.com/sharer/sharer.php?u=${`https://kafefolio.vercel.app/${user?.username}`}`)} className="flex flex-col items-center justify-center gap-2">
+                      <div className="">
+                        <i className="fa-brands fa-instagram bg-gradient-to-br from-purple-500 via-pink-500 to-yellow-500
+                           text-white text-2xl padding10 rounded-full" />
+                      </div>
+                      <div className="">
+                        <p className="text-sm font-medium">Instagram</p>
+                      </div>
+                    </div>
+
+                    {/* X */}
+                    <div onClick={() => window.open(`https://www.x.com/share?url=${`https://kafefolio.vercel.app/${user?.username}`}`)} className="flex flex-col items-center justify-center gap-2">
+                      <div className="">
+                        <i className="fa-brands fa-x-twitter bg-black text-white text-2xl padding10 rounded-full" />
+                      </div>
+                      <div className="">
+                        <p className="text-sm font-medium">X</p>
+                      </div>
+                    </div>
+
+                    {/* Threads */}
+                    <div onClick={() => window.open(`https://www.threads.net/share?text=${`https://kafefolio.vercel.app/${user?.username}`}`)} className="flex flex-col items-center justify-center gap-2">
+                      <div className="">
+                        <i className="fa-brands fa-threads bg-black text-white text-2xl padding10 rounded-full" />
+                      </div>
+                      <div className="">
+                        <p className="text-sm font-medium">Threads</p>
+                      </div>
+                    </div>
+
+                    {/* Linkedin */}
+                    <div onClick={() => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${`https://kafefolio.vercel.app/${user?.username}`}`)} className="flex flex-col items-center justify-center gap-2">
+                      <div className="">
+                        <i className="fa-brands fa-linkedin bg-blue-700 text-white text-2xl padding10 rounded-full" />
+                      </div>
+                      <div className="">
+                        <p className="text-sm font-medium">Linkedin</p>
+                      </div>
+                    </div>
+
+                    {/* Snapchat */}
+                    <div onClick={() => window.open(`https://www.snapchat.com/share?url=${`https://kafefolio.vercel.app/${user?.username}`}`)} className="flex flex-col items-center justify-center gap-2">
+                      <div className="">
+                        <i className="fa-brands fa-snapchat bg-[#FFFF00] text-white text-2xl padding10 rounded-full" />
+                      </div>
+                      <div className="">
+                        <p className="text-sm font-medium">Snapchat</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          )}
+
+        {/* Copy button */}
+        {/* <button onClick={() => navigator.clipboard.writeText(`https://kafefolio.vercel.app/${user?.username}`)} className="fixed top-3 right-5 cursor-pointer padding10">
+          <i onClick={() => toast.success("Copied!")} className="fa-solid fa-share text-3xl text-[#432818]" />
+        </button> */}
         {/* My Information */}
         <div className="flex flex-col gap-3">
           <h1 className="text-xl font-semibold">My Information</h1>
