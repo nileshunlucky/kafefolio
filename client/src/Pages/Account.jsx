@@ -313,7 +313,7 @@ const Account = () => {
           <h1 className="text-xl font-semibold">Support & Contact</h1>
           <p className='text-[#432818] font-medium'>Get help with your Kafefolio account.</p>
           <div className="flex items-center gap-3 justify-between">
-            <button onClick={() => window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=kafefolio@gmail.com`, "_blank")} className='bg-[#432818] text-[#ffe6a7] padding10 rounded-2xl cursor-pointer w-full whitespace-nowrap'>Email</button>
+            <a href={`mailto:kafefolio@gmail.com`} className='bg-[#432818] text-[#ffe6a7] padding10 rounded-2xl cursor-pointer w-full whitespace-nowrap'>Email</a>
             <button onClick={() => window.open("https://wa.me/9082973931", "_blank")} className='bg-[#432818] text-[#ffe6a7] padding10 rounded-2xl cursor-pointer w-full whitespace-nowrap'>WhatsApp</button>
           </div>
         </div>
