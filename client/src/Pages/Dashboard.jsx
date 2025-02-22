@@ -588,7 +588,7 @@ const Dashboard = () => {
                       <h2 className="text-xl font-medium text-center">Add your category</h2>
 
                       <div className="flex items-center bg-[#e1bb80] padding10 rounded-2xl">
-                        <select name="category" value={formData.category} onChange={handleChange} className="bg-[#e1bb80] focus:outline-none w-full" >
+                        <select name="category" value={formData.category || 'Artist'} onChange={handleChange} className="bg-[#e1bb80] focus:outline-none w-full" >
                           <option value="Artist">Artist</option>
                           <option value="Model">Model</option>
                           <option value="Fashion Model">Fashion Model</option>
