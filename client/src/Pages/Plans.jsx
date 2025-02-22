@@ -27,9 +27,11 @@ const Plans = () => {
               <hr />
               <li className='whitespace-nowrap padding10'>Custom domain</li>
               <hr />
-              <li className='padding10'>Blue Tick</li>
+              <li className='padding10'>Verify account</li>
               <hr />
-              <li className='whitespace-nowrap padding10'>Portfolio Images</li>
+              <li className='whitespace-nowrap padding10'>Upload media</li>
+              <hr />
+              <li className='whitespace-nowrap padding10'>Media Library</li>
               <hr />
               <li className='padding10'>Links</li>
               <hr />
@@ -55,6 +57,8 @@ const Plans = () => {
               <hr />
               <li className='padding10'>5</li>
               <hr />
+              <li className='padding10'>Images</li>
+              <hr />
               <li className='padding10'>Limited</li>
               <hr />
               <li className='padding10'>No</li>
@@ -78,6 +82,8 @@ const Plans = () => {
               <li className='padding10'>Yes</li>
               <hr />
               <li className='padding10'>15</li>
+              <hr />
+              <li className='padding10'>Images & Videos</li>
               <hr />
               <li className='padding10'>Unlimited</li>
               <hr />

@@ -18,7 +18,10 @@ const Dashboard = () => {
       threads: '',
       snapchat: '',
       youtube: '',
-      linkedIn: ''
+      linkedIn: '',
+      pinterest: '',
+      tiktok: '',
+      onlyfans: '',
     },
     links: [
       {
@@ -92,7 +95,10 @@ const Dashboard = () => {
             threads: data.social?.threads,
             snapchat: data.social?.snapchat,
             youtube: data.social?.youtube,
-            linkedIn: data.social?.linkedIn
+            linkedIn: data.social?.linkedIn,
+            pinterest: data.social?.pinterest,
+            tiktok: data.social?.tiktok,
+            onlyfans: data.social?.onlyfans
           },
           links: [
             {
@@ -638,7 +644,6 @@ const Dashboard = () => {
               <form onSubmit={handleSubmit} className="bg-[#ffe6a7] text-[#432818] flex flex-col gap-5 padding20 rounded-xl 
               shadow-lg w-[80%] md:w-[40%]">
                 <h2 className="text-xl font-medium text-center">Add your social media links</h2>
-
                 <div className="flex flex-col gap-3 h-[300px] overflow-y-scroll noscrollbar scroll-smooth">
                   <div className="flex items-center bg-[#e1bb80] padding10 rounded-2xl">
                     {/* Facebook */}
@@ -724,6 +729,42 @@ const Dashboard = () => {
                       className='bg-[#e1bb80] focus:outline-none w-full'
                     />
                   </div>
+                  {/* Pinterest */}
+                  <div className="flex items-center bg-[#e1bb80] padding10 rounded-2xl">
+                    <i className="fa-brands fa-pinterest text-2xl padding10"></i>
+                    <input
+                      type="text"
+                      name="pinterest"
+                      placeholder='Pinterest'
+                      value={formData.social.pinterest}
+                      onChange={handleSocialChange}
+                      className='bg-[#e1bb80] focus:outline-none w-full'
+                    />
+                  </div>
+                  {/* Tiktok */}
+                  <div className="flex items-center bg-[#e1bb80] padding10 rounded-2xl">
+                    <i className="fa-brands fa-tiktok text-2xl padding10"></i>
+                    <input
+                      type="text"
+                      name="tiktok"
+                      placeholder='Tiktok'
+                      value={formData.social.tiktok}
+                      onChange={handleSocialChange}
+                      className='bg-[#e1bb80] focus:outline-none w-full'
+                    />
+                  </div>
+                  {/* OnlyFans */}
+                  <div className="flex items-center bg-[#00AEEF] padding10 rounded-2xl text-white">
+                    <img className="w-10 h-10" src="https://images.seeklogo.com/logo-png/52/2/onlyfans-logo-png_seeklogo-527484.png" alt="onlyfans" />
+                    <input
+                      type="text"
+                      name="onlyfans"
+                      placeholder='OnlyFans'
+                      value={formData.social.onlyfans}
+                      onChange={handleSocialChange}
+                      className='bg-[#00AEEF] focus:outline-none w-full'
+                    />
+                  </div>
                 </div>
 
                 <button
@@ -786,9 +827,9 @@ const Dashboard = () => {
                 </div>
               ))
             ) : (
-            <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-sm text-[#432818]">
-              No media uploaded yet.
-            </p>
+              <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-sm text-[#432818]">
+                No media uploaded yet.
+              </p>
             )}
           </div>
 

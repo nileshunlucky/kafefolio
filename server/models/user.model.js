@@ -24,6 +24,9 @@ const userSchema = new mongoose.Schema({
             snapchat: "",
             youtube: "",
             linkedIn: "",
+            pinterest: "",
+            tiktok: "",
+            onlyfans: "",
         }
     },
     portfolio: {

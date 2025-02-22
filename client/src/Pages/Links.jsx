@@ -308,6 +308,24 @@ const Links = () => {
                 <i className="fa-brands fa-linkedin" />
               </div></a>
             )}
+            {/* Pinterest */}
+            {user?.social?.pinterest && (
+              <a onClick={() => trackSocialClick('Pinterest')} href={user?.social?.pinterest} target='_blank' rel="noopener noreferrer"><div className="">
+                <i className="fa-brands fa-pinterest" />
+              </div></a>
+            )}
+            {/* Tiktok */}
+            {user?.social?.tiktok && (
+              <a onClick={() => trackSocialClick('Tiktok')} href={user?.social?.tiktok} target='_blank' rel="noopener noreferrer"><div className="">
+                <i className="fa-brands fa-tiktok" />
+              </div></a>
+            )}
+            {/* Onlyfans */}
+            {user?.social?.onlyfans && (
+              <a onClick={() => trackSocialClick('Onlyfans')} href={user?.social?.onlyfans} target='_blank' rel="noopener noreferrer"><div className="">
+                <img onClick={() => trackSocialClick("OnlyFans")} className="w-10 h-10" src="https://images.seeklogo.com/logo-png/52/2/onlyfans-logo-png_seeklogo-527484.png" alt="onlyfans" />
+              </div></a>
+            )}
           </div>
         }
       </div>

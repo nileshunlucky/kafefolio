@@ -121,7 +121,7 @@ const Nav = ({ user }) => {
           {/* Social Media */}
           <div className="flex flex-col justify-center items-center gap-3 padding20">
             {
-              user?.social && (user?.social.facebook || user?.social.instagram || user?.social.threads || user?.social.X || user?.social.linkedIn || user?.social.snapchat || user?.social.youtube) && <p className="font-medium text-left w-full text-xl"
+              user?.social && (user?.social.facebook || user?.social.instagram || user?.social.threads || user?.social.X || user?.social.linkedIn || user?.social.snapchat || user?.social.youtube || user?.social.tiktok || user?.social.pinterest || user?.social.onlyfans) && <p className="font-medium text-left w-full text-xl"
                 style={{ fontFamily: user?.portfolio.theme.font }}>Follow Me</p>
             }
 
@@ -130,10 +130,10 @@ const Nav = ({ user }) => {
                 user?.social?.facebook && <a href={user?.social?.facebook} target="_blank" rel="noopener noreferrer"><i onClick={() => trackSocialClick("Facebook")} className="fa-brands fa-facebook" /></a>
               }
               {
-                user?.social?.instagram && <a href={user?.social?.instagram} target="_blank" rel="noopener noreferrer"><i onClick={() => trackSocialClick("Instagram")}className="fa-brands fa-instagram" /></a>
+                user?.social?.instagram && <a href={user?.social?.instagram} target="_blank" rel="noopener noreferrer"><i onClick={() => trackSocialClick("Instagram")} className="fa-brands fa-instagram" /></a>
               }
               {
-                user?.social?.threads && <a href={user?.social?.threads} target="_blank" rel="noopener noreferrer"><i onClick={() => trackSocialClick("Threads")}className="fa-brands fa-threads" /></a>
+                user?.social?.threads && <a href={user?.social?.threads} target="_blank" rel="noopener noreferrer"><i onClick={() => trackSocialClick("Threads")} className="fa-brands fa-threads" /></a>
               }
               {
                 user?.social?.X && <a href={user?.social?.X} target="_blank" rel="noopener noreferrer">
@@ -147,6 +147,17 @@ const Nav = ({ user }) => {
               }
               {
                 user?.social?.youtube && <a href={user?.social?.youtube} target="_blank" rel="noopener noreferrer"><i onClick={() => trackSocialClick("Youtube")} className="fa-brands fa-youtube" /></a>
+              }
+              {
+                user?.social?.tiktok && <a href={user?.social?.tiktok} target="_blank" rel="noopener noreferrer"><i onClick={() => trackSocialClick("TikTok")} className="fa-brands fa-tiktok" /></a>
+              }
+              {
+                user?.social?.pinterest && <a href={user?.social?.pinterest} target="_blank" rel="noopener noreferrer"><i onClick={() => trackSocialClick("Pinterest")} className="fa-brands fa-pinterest" /></a>
+              }
+              {
+                user?.social?.onlyfans && <a href={user?.social?.onlyfans} target="_blank" rel="noopener noreferrer">
+                  <img onClick={() => trackSocialClick("OnlyFans")}  className="w-10 h-10" src="https://images.seeklogo.com/logo-png/52/2/onlyfans-logo-png_seeklogo-527484.png" alt="onlyfans" />
+                </a>
               }
             </div>
           </div>
