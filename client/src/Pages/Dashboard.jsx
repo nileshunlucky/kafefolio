@@ -764,7 +764,7 @@ const Dashboard = () => {
                 </div>
               ))
             ) : (
-              <p className="fixed text-center md:top-[43%] top-[40%] text-sm text-[#432818]">
+              <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-sm text-[#432818]">
                 No images uploaded yet.
               </p>
             )}
