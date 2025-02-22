@@ -83,7 +83,8 @@ const Plans = () => {
               <hr />
               <li className='padding10'>15</li>
               <hr />
-              <li className='padding10'>Images & Videos</li>
+              <li className='padding10 md:block hidden'>Images & Videos</li>
+              <li className='padding10 md:hidden block '>Img & Vid</li>
               <hr />
               <li className='padding10'>Unlimited</li>
               <hr />
@@ -101,7 +102,7 @@ const Plans = () => {
           <button className='bg-[#ffe6a7] text-[#432818] w-full text-lg cursor-pointer whitespace-nowrap padding20 rounded-xl'>
             Claim your <span className='text-[#99582a] Pacifico'>Kafefolio</span>
           </button>
-        </Link> 
+        </Link>
       </div>
     </motion.div>
   );
