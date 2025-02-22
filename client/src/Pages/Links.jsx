@@ -106,10 +106,10 @@ const Links = () => {
   return (
     <div
       className="flex md:items-center justify-center min-h-screen noscrollbar scroll-smooth"
-     style={{
-       backgroundColor: user?.portfolio?.theme?.backgroundColor,
-       color: user?.portfolio?.theme?.color
-     }}
+      style={{
+        backgroundColor: user?.portfolio?.theme?.backgroundColor,
+        color: user?.portfolio?.theme?.color
+      }}
     >
       <Toaster />
       <div className="md:w-1/2 w-[90%] flex flex-col gap-5 marginy">
@@ -265,52 +265,51 @@ const Links = () => {
         </div>
         {/* Social Media */}
         {
-          !user?.isPro && (
-            <div className="flex justify-center items-center gap-5 text-3xl">
-              {/* Facebook */}
-              {user?.social?.facebook && (
-                <a onClick={() => trackSocialClick('Facebook')} href={user?.social?.facebook} target='_blank' rel="noopener noreferrer"><div className="">
-                  <i className="fa-brands fa-facebook" />
-                </div></a>
-              )}
-              {/* Instagram */}
-              {user?.social?.instagram && (
-                <a onClick={() => trackSocialClick('Instagram')} href={user?.social?.instagram} target='_blank' rel="noopener noreferrer"><div className="">
-                  <i className="fa-brands fa-instagram" />
-                </div></a>
-              )}
-              {/* Threads */}
-              {user?.social?.threads && (
-                <a onClick={() => trackSocialClick('Threads')} href={user?.social?.threads} target='_blank' rel="noopener noreferrer"><div className="">
-                  <i className="fa-brands fa-threads" />
-                </div></a>
-              )}
-              {/* X */}
-              {user?.social?.X && (
-                <a onClick={() => trackSocialClick('X')} href={user?.social?.X} target='_blank' rel="noopener noreferrer"><div className="">
-                  <i className="fa-brands fa-x-twitter" />
-                </div></a>
-              )}
-              {/* Snapchat */}
-              {user?.social?.snapchat && (
-                <a onClick={() => trackSocialClick('Snapchat')} href={user?.social?.snapchat} target='_blank' rel="noopener noreferrer"><div className="">
-                  <i className="fa-brands fa-snapchat" />
-                </div></a>
-              )}
-              {/* Youtube */}
-              {user?.social?.youtube && (
-                <a onClick={() => trackSocialClick('Youtube')} href={user?.social?.youtube} target='_blank' rel="noopener noreferrer"><div className="">
-                  <i className="fa-brands fa-youtube" />
-                </div></a>
-              )}
-              {/* Linkedin */}
-              {user?.social?.linkedIn && (
-                <a onClick={() => trackSocialClick('LinkedIn')} href={user?.social?.linkedIn} target='_blank' rel="noopener noreferrer"><div className="">
-                  <i className="fa-brands fa-linkedin" />
-                </div></a>
-              )}
-            </div>
-          )}
+          <div className="flex justify-center items-center gap-5 text-3xl">
+            {/* Facebook */}
+            {user?.social?.facebook && (
+              <a onClick={() => trackSocialClick('Facebook')} href={user?.social?.facebook} target='_blank' rel="noopener noreferrer"><div className="">
+                <i className="fa-brands fa-facebook" />
+              </div></a>
+            )}
+            {/* Instagram */}
+            {user?.social?.instagram && (
+              <a onClick={() => trackSocialClick('Instagram')} href={user?.social?.instagram} target='_blank' rel="noopener noreferrer"><div className="">
+                <i className="fa-brands fa-instagram" />
+              </div></a>
+            )}
+            {/* Threads */}
+            {user?.social?.threads && (
+              <a onClick={() => trackSocialClick('Threads')} href={user?.social?.threads} target='_blank' rel="noopener noreferrer"><div className="">
+                <i className="fa-brands fa-threads" />
+              </div></a>
+            )}
+            {/* X */}
+            {user?.social?.X && (
+              <a onClick={() => trackSocialClick('X')} href={user?.social?.X} target='_blank' rel="noopener noreferrer"><div className="">
+                <i className="fa-brands fa-x-twitter" />
+              </div></a>
+            )}
+            {/* Snapchat */}
+            {user?.social?.snapchat && (
+              <a onClick={() => trackSocialClick('Snapchat')} href={user?.social?.snapchat} target='_blank' rel="noopener noreferrer"><div className="">
+                <i className="fa-brands fa-snapchat" />
+              </div></a>
+            )}
+            {/* Youtube */}
+            {user?.social?.youtube && (
+              <a onClick={() => trackSocialClick('Youtube')} href={user?.social?.youtube} target='_blank' rel="noopener noreferrer"><div className="">
+                <i className="fa-brands fa-youtube" />
+              </div></a>
+            )}
+            {/* Linkedin */}
+            {user?.social?.linkedIn && (
+              <a onClick={() => trackSocialClick('LinkedIn')} href={user?.social?.linkedIn} target='_blank' rel="noopener noreferrer"><div className="">
+                <i className="fa-brands fa-linkedin" />
+              </div></a>
+            )}
+          </div>
+        }
       </div>
 
       {/* Join Kafefolio */}
