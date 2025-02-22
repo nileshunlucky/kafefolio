@@ -148,7 +148,7 @@ const Login = () => {
                         </button>
 
                         {!signUp && (
-                            <p>By clicking Create account, you agree to Linktree's
+                            <p>By clicking Create account, you agree to Kafefolio's
                                 <Link className='underline' to="/privacy"> privacy notice</Link>,
                                 <Link className='underline' to="/terms"> T&Cs</Link>
                                 , and to receive offers, news, and updates.
