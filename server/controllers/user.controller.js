@@ -164,6 +164,25 @@ export const linkMedia = async (req, res) => {
     }
 };
 
+export const deleteMedia = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Remove the image from the user's linkMedia
+        user.linkMedia = "";
+
+        await user.save();
+
+        res.json({ message: "Image deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting image:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
 export const deletePortfolioPost = async (req, res) => {
     try {
         const { mediaUrl } = req.body; // Get the image URL from the request body

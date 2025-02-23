@@ -258,10 +258,32 @@ const Dashboard = () => {
         },
       }));
     } catch (error) {
-      console.error("Error deleting image:", error);
-      toast.error("Failed to delete image.");
+      console.error("Error deleting media:", error);
+      toast.error("Failed to delete media.");
     }
   };
+
+  const handleDeleteLinkMedia = async () => {
+    try {
+      await axios.delete(`https://kafefolio-server.onrender.com/api/user/mediaDelete`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        }
+      });
+
+      // Success feedback
+      toast.success("Media deleted!");
+
+      setUser((prev) => ({
+        ...prev,
+        linkMedia: "",
+      }))
+    } catch (error) {
+      console.error("Error deleting media:", error);
+      toast.error("Failed to delete media.");
+    }
+  }
 
   const handleFileChange = async (e) => {
     try {
@@ -976,6 +998,7 @@ const Dashboard = () => {
         {/* Links */}
         <div className="flex flex-col gap-3 bg-[#e1bb80] padding20 rounded-xl">
           <div className="flex flex-col gap-3">
+            <h1 className="text-2xl font-semibold text-[#432818] text-center">Links</h1>
             {
               user?.links?.map((link, index) => (
                 <div key={index} className="flex items-center justify-between gap-3 border bg-[#e1bb80] text-[#432818] padding10 rounded-2xl overflow-hidden">
@@ -1000,7 +1023,8 @@ const Dashboard = () => {
 
           {
             user?.isPro && (
-              <label className='w-full flex justify-center items-center'>
+              <label className='w-full flex justify-center items-center relative'>
+                <i onClick={handleDeleteLinkMedia} className="fa-solid fa-trash text-2xl padding10 cursor-pointer absolute top-5 right-5 text-[#432818] padding10" />
                 {
                   user?.linkMedia ? (
                     <>

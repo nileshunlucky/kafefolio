@@ -11,7 +11,8 @@ import {
     aboutUser,
     aboutMe,
     activePro,
-    linkMedia
+    linkMedia,
+    deleteMedia
 } from '../controllers/user.controller.js';
 import { verifyToken } from '../middleware/auth.middleware.js';
 import { upload } from '../middleware/multer.js';
@@ -35,6 +36,7 @@ router.get('/logout', verifyToken, logoutUser);
 router.put('/update', verifyToken, updateUser);
 router.delete('/delete', verifyToken, deleteUser);
 router.delete('/postDelete', verifyToken, deletePortfolioPost);
+router.delete('/mediaDelete', verifyToken, deleteMedia);
 
 // Dynamic Route
 router.get('/:username', verifyToken, userPortfolio)
