@@ -1023,37 +1023,40 @@ const Dashboard = () => {
 
           {
             user?.isPro && (
-              <label className='w-full flex justify-center items-center relative'>
-                <i onClick={handleDeleteLinkMedia} className="fa-solid fa-trash text-2xl padding10 cursor-pointer absolute top-5 right-5 text-[#432818] padding10" />
-                {
-                  user?.linkMedia ? (
-                    <>
-                      {
-                        user?.linkMedia.includes("video") ? (
-                          <video
-                            src={user?.linkMedia}
-                            muted
-                            autoPlay
-                            loop
-                            className="w-full h-full rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer"
-                          />
-                        ) : (
-                          <img
-                            src={user?.linkMedia}
-                            alt="Preview"
-                            className="w-full h-full rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer"
-                          />
-                        )
-                      }
-                    </>
-                  ) : (
-                    <div className='w-full md:h-24 h-20 rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer'>
-                      <p className='text-[#ffe6a7] text-sm'>Upload Background Media</p>
-                    </div>
-                  )
-                }
-                <input accept="image/*,video/*" onChange={handleLinkMedia} type="file" className='hidden' />
-              </label>
+              <div className="relative">
+                <i onClick={handleDeleteLinkMedia} className="fa-solid fa-trash text-2xl padding10 cursor-pointer absolute
+                 top-3 right-3 text-[#432818] padding10 z-20" />
+                <label className='w-full flex justify-center items-center'>
+                  {
+                    user?.linkMedia ? (
+                      <>
+                        {
+                          user?.linkMedia.includes("video") ? (
+                            <video
+                              src={user?.linkMedia}
+                              muted
+                              autoPlay
+                              loop
+                              className="w-full h-full rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer"
+                            />
+                          ) : (
+                            <img
+                              src={user?.linkMedia}
+                              alt="Preview"
+                              className="w-full h-full rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer"
+                            />
+                          )
+                        }
+                      </>
+                    ) : (
+                      <div className='w-full md:h-24 h-20 rounded-xl bg-[#432818] flex items-center justify-center cursor-pointer'>
+                        <p className='text-[#ffe6a7] text-sm'>Upload Background Media</p>
+                      </div>
+                    )
+                  }
+                  <input accept="image/*,video/*" onChange={handleLinkMedia} type="file" className='hidden' />
+                </label>
+              </div>
             )
           }
 
