@@ -87,7 +87,11 @@ const Portfolio = () => {
   }, [user?._id]);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <div className="flex flex-col justify-center items-center gap-2 h-screen padding10">
+      <div className="w-full h-1/3 bg-zinc-300 animate-pulse"></div>
+      <div className="w-full h-1/3 bg-zinc-300 animate-pulse"></div>
+      <div className="w-full h-1/3 bg-zinc-300 animate-pulse"></div>
+    </div>
   }
 
   // Render the template dynamically

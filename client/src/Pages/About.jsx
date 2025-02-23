@@ -79,7 +79,7 @@ const About = () => {
         <div className="md:w-1/2 flex justify-center items-center relative padding20">
           <img
             className="relative z-10 rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300 object-contain"
-            src={user?.about?.image}
+            src={user?.about?.image || "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3383.jpg"}
             alt="Profile"
           />
         </div>

@@ -37,7 +37,11 @@ const Profile = () => {
   }, [username]);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <div className="flex flex-col gap-2">
+      <div className="w-full h-[72px] bg-zinc-300 animate-pulse"></div>
+      <div className="w-full h-screen bg-zinc-300 animate-pulse"></div>
+      <div className="w-full h-[60px] bg-zinc-300 animate-pulse"></div>
+    </div>
   }
 
   return (
