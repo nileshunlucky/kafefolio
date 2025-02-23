@@ -38,7 +38,7 @@ const Nav = ({ user }) => {
 
   return (
     <nav
-      className={`flex justify-between items-center padding20 z-50`}
+      className={`flex justify-between items-center padding20 relative z-50`}
       style={{ backgroundColor: user?.portfolio.theme.color, color: user?.portfolio.theme.backgroundColor, fontFamily: user?.portfolio.theme.font }}>
       <Link to={`/${user.username}`}>
         <h1

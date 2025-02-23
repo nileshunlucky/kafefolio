@@ -105,14 +105,14 @@ const Links = () => {
   };
   return (
     <div
-      className="flex md:items-center justify-center min-h-screen noscrollbar scroll-smooth"
+      className="flex md:items-center justify-center min-h-screen noscrollbar scroll-smooth z-50"
       style={{
         backgroundColor: user?.portfolio?.theme?.backgroundColor,
         color: user?.portfolio?.theme?.color
       }}
     >
       {
-        user?.linkMedia && (
+        user?.isPro && user?.linkMedia && (
           <>
             {
               user?.linkMedia.includes("video") ? (
@@ -121,13 +121,13 @@ const Links = () => {
                   muted
                   autoPlay
                   loop
-                  className="w-full absolute h-screen object-cover"
+                  className="w-full fixed top-0 left-0 h-screen object-cover"
                 />
               ) : (
                 <img
                   src={user?.linkMedia}
                   alt="Preview"
-                  className="w-full absolute h-screen object-cover"
+                  className="w-full fixed top-0 left-0 h-screen object-cover"
                 />
               )
             }
