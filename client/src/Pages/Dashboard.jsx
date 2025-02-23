@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState(null);
   const [nameBio, setNameBio] = useState(false);
   const [formData, setFormData] = useState({
@@ -48,10 +51,22 @@ const Dashboard = () => {
   const [addCategory, setAddCategory] = useState(false);
   const [addLinks, setAddLinks] = useState(false);
   const [previewMedia, setPreviewMedia] = useState(null);
+  const [showPlan, setShowPlan] = useState(false);
+
+  useEffect(() => {
+    const hasSeenPlan = localStorage.getItem('hasSeenPlan');
+    if (!user?.isPro && !hasSeenPlan) {
+      const timer = setTimeout(() => {
+        setShowPlan(true);
+        localStorage.setItem('hasSeenPlan', 'true'); // Save the state
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [user]);
 
 
   useEffect(() => {
-    const shouldHideOverflow = nameBio || addCategory || addSocial || addLinks || previewMedia;
+    const shouldHideOverflow = nameBio || addCategory || addSocial || addLinks || previewMedia || showPlan;
 
     if (shouldHideOverflow) {
       document.body.classList.add("overflow-hidden");
@@ -63,7 +78,7 @@ const Dashboard = () => {
     return () => {
       document.body.classList.remove("overflow-hidden");
     };
-  }, [nameBio, addCategory, addSocial, addLinks, previewMedia]);
+  }, [nameBio, addCategory, addSocial, addLinks, previewMedia, showPlan]);
 
 
   useEffect(() => {
@@ -550,8 +565,31 @@ const Dashboard = () => {
   };
 
   return (
-    <div className='flex justify-center items-center md:h-auto min-h-screen scroll-smooth overflow-hidden'>
+    <div className='flex justify-center items-center md:h-auto min-h-screen scroll-smooth overflow-hidden relative'>
       <Toaster />
+      {/* Plan Pop-up */}
+      {!user?.isPro && showPlan && (
+        <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 padding20">
+          <div className="flex flex-col gap-5 items-center text-center bg-[#E1BB80] text-[#432818] rounded-xl padding20 shadow-lg">
+            <h1 className="text-2xl border-b border-[#432818] pb-2 whitespace-nowrap">
+              Upgrade to Pro Plan
+            </h1>
+            <p>Subscribe for ₹299 per month and unlock premium features.</p>
+            <button
+              onClick={() => navigate('/admin/upgrade')}
+              className="bg-[#432818] text-[#E1BB80] w-full cursor-pointer whitespace-nowrap padding10 rounded-xl"
+            >
+              Subscribe Now
+            </button>
+            <button
+              onClick={() => setShowPlan(false)}
+              className="border-[#432818] border-2 w-full cursor-pointer whitespace-nowrap padding10 rounded-xl"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
       <div className="md:w-[60%] w-[90%] flex flex-col gap-12 marginb paddingt">
         {/* Profile */}
         <div className="flex flex-col gap-3 bg-[#e1bb80] padding20 rounded-xl">
