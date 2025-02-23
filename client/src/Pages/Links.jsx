@@ -355,7 +355,7 @@ const Links = () => {
 
       {/* Join Kafefolio */}
       {!user?.isPro && (
-        <div className="fixed bottom-10">
+        <div className="fixed bottom-10 z-50">
           <button onClick={() => window.open('https://kafefolio.vercel.app', '_blank')} className='flex items-center gap-2 font-medium w-full cursor-pointer whitespace-nowrap padding10 rounded-full'
             style={{
               fontFamily: user?.portfolio?.theme?.font,
