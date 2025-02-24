@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     category: { type: String, default: "" },
     links: [
         {
+            image: { type: String, required: true },
             text: { type: String, required: true },
             url: { type: String, required: true }
         }

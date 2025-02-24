@@ -12,7 +12,8 @@ import {
     aboutMe,
     activePro,
     linkMedia,
-    deleteMedia
+    deleteMedia,
+    linkImg
 } from '../controllers/user.controller.js';
 import { verifyToken } from '../middleware/auth.middleware.js';
 import { upload } from '../middleware/multer.js';
@@ -30,6 +31,7 @@ router.post('/post', verifyToken, (req, res, next) => {
 }, portfolioPost);
 router.post('/media', verifyToken, upload.single('image'), linkMedia);
 router.post('/about', verifyToken, upload.single('image'), aboutUser);
+router.post('/link', verifyToken, upload.single('image'), linkImg);
 router.post('/activate-pro', verifyToken, activePro);
 router.put('/aboutme', verifyToken, aboutMe);
 router.get('/logout', verifyToken, logoutUser);

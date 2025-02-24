@@ -246,6 +246,25 @@ export const aboutMe = async (req, res) => {
     }
 };
 
+export const linkImg = async (req, res) => {
+    try {
+        const imageUrl = req.file.path;
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        user.links.image = imageUrl;
+        await user.save();
+
+        res.json({ message: "Image uploaded successfully", url: imageUrl });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
 export const activePro = async (req, res) => {
 
     try {

@@ -29,6 +29,7 @@ const Dashboard = () => {
     },
     links: [
       {
+        image: "",
         text: "",
         url: ""
       }],
@@ -123,6 +124,7 @@ const Dashboard = () => {
           },
           links: [
             {
+              image: data.links?.image,
               text: data.links?.text,
               url: data.links?.url
             }
@@ -497,7 +499,7 @@ const Dashboard = () => {
       // Reset formData after submission
       setFormData((prev) => ({
         ...prev,
-        links: [{ text: "", url: "" }], // Reset input fields
+        links: [{ image: "", text: "", url: "" }], // Reset input fields
       }));
 
       toast.success("Link added!");
@@ -505,6 +507,49 @@ const Dashboard = () => {
       setAddLinks(false);
     } catch (error) {
       console.error("Add Error:", error);
+      toast.error(error.message);
+    }
+  }
+
+  const handleLinkImageChange = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("image", e.target.files[0]);
+
+      // Make the POST request to upload the image
+      const res = await axios.post('https://kafefolio-server.onrender.com/api/user/link', formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      });
+
+      // Axios automatically parses JSON responses, so use `res.data` directly
+      const data = res.data;
+
+      // Success feedback
+      toast.success("Image uploaded!");
+
+      // Update the user state with the new data
+      setUser((prev) => ({
+        ...prev,
+        about: {
+          ...prev.about,
+          image: data.url,
+        } // Assuming the response includes the updated profilePic URL
+      }));
+
+      // Update the user state with the new data
+      setUser((prev) => ({
+        ...prev,
+        links: {
+          ...prev.links,
+          image: data.url,
+          
+        }
+      }));
+
+    } catch (error) {
+      console.error('Error uploading image:', error);
       toast.error(error.message);
     }
   }
@@ -1071,6 +1116,12 @@ const Dashboard = () => {
               <div className="fixed inset-0 bg-black/50 bg-opacity-50 flex justify-center items-center z-50">
                 <form onSubmit={handleAddLink} className="bg-[#ffe6a7] text-[#432818] flex flex-col gap-5 padding20 rounded-xl shadow-lg w-[80%] md:w-[40%]">
                   <h2 className="text-xl font-medium text-center">Add your links</h2>
+
+                  {/* Upload Image */}
+                  <label >
+                    <img src={formData.links[0]?.image || '/coffee.png'} alt="img" />
+                    <input onChange={handleLinkImageChange} type="file" accept="image/*" hidden />
+                  </label>
 
                   <div className="flex items-center bg-[#e1bb80] padding10 rounded-2xl">
                     <input
