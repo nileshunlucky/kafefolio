@@ -518,8 +518,6 @@ const Dashboard = () => {
 
       // Axios automatically parses JSON responses, so use `res.data` directly
       const data = res.data;
-      console.log("data", data)
-      console.log("res", res)
 
       // Success feedback
       toast.success("Image uploaded!");

@@ -274,8 +274,13 @@ const Links = () => {
           {user?.links?.length > 0 ? (
             user.links.map((link, index) => (
               <a key={index} href={link.url} target="_blank" rel="noopener noreferrer">
-                <div className="flex justify-between gap-3 border-2 padding10 rounded-full"
+                <div className="flex justify-between items-center gap-3 border-2 padding10 rounded-full relative"
                   style={{ hover: { backgroundColor: user?.portfolio?.theme?.color } }}>
+                  {
+                    user?.links?.image && (
+                      <img className='w-10 rounded-full object-cover absolute' src={link.image} alt={link.text} />
+                    )
+                  }
                   <h1 className="text-lg font-medium text-center w-full"
                     style={{ fontFamily: user?.portfolio?.theme?.font }}>{link.text}</h1>
                 </div>
@@ -354,18 +359,16 @@ const Links = () => {
       </div>
 
       {/* Join Kafefolio */}
-      {!user?.isPro && (
-        <div className="fixed bottom-10 z-50">
-          <button onClick={() => window.open('https://kafefolio.vercel.app', '_blank')} className='flex items-center gap-2 font-medium w-full cursor-pointer whitespace-nowrap padding10 rounded-full'
-            style={{
-              fontFamily: user?.portfolio?.theme?.font,
-              backgroundColor: user?.portfolio?.theme?.color,
-              color: user?.portfolio?.theme?.backgroundColor
-            }}>
-            <img className='w-10' src={'/kafefolio.png' || hidden} alt="logo" />
-            Kafefolio.vercel.app/you</button>
-        </div>
-      )}
+      <div className="fixed bottom-10 z-50">
+        <button onClick={() => window.open('https://kafefolio.vercel.app', '_blank')} className='flex items-center gap-2 font-medium w-full cursor-pointer whitespace-nowrap padding10 rounded-full'
+          style={{
+            fontFamily: user?.portfolio?.theme?.font,
+            backgroundColor: user?.portfolio?.theme?.color,
+            color: user?.portfolio?.theme?.backgroundColor
+          }}>
+          <img className='w-10' src={'/kafefolio.png' || hidden} alt="logo" />
+          Kafefolio.vercel.app/you</button>
+      </div>
     </div>
   );
 };
