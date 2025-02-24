@@ -277,7 +277,7 @@ const Links = () => {
                 <div className="flex justify-between items-center gap-3 border-2 padding10 rounded-full relative"
                   style={{ hover: { backgroundColor: user?.portfolio?.theme?.color } }}>
                   {link?.image && (
-                    <img className='w-10 h-10 rounded-full object-cover absolute left-5' src={link.image} alt={link.text} />
+                    <img className='w-10 h-10 rounded-full object-cover' src={link.image} alt={link.text} />
                   )}
                   <h1 className="text-lg font-medium text-center w-full"
                     style={{ fontFamily: user?.portfolio?.theme?.font }}>{link.text}</h1>
