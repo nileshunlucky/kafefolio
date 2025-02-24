@@ -511,7 +511,7 @@ const Dashboard = () => {
     }
   }
 
-  const handleLinkImageChange = async () => {
+  const handleLinkImageChange = async (e) => {
     try {
       const formData = new FormData();
       formData.append("image", e.target.files[0]);
@@ -525,6 +525,8 @@ const Dashboard = () => {
 
       // Axios automatically parses JSON responses, so use `res.data` directly
       const data = res.data;
+      console.log("data", data)
+      console.log("res", res)
 
       // Success feedback
       toast.success("Image uploaded!");

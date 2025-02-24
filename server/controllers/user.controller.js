@@ -255,6 +255,10 @@ export const linkImg = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
+        if (!req.file) {
+            return res.status(400).json({ message: 'No file uploaded' });   
+        }
+
         user.links.image = imageUrl;
         await user.save();
 
