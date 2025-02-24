@@ -52,6 +52,7 @@ const Dashboard = () => {
   const [addLinks, setAddLinks] = useState(false);
   const [previewMedia, setPreviewMedia] = useState(null);
   const [showPlan, setShowPlan] = useState(false);
+  const [preview, setPreview] = useState(true);
 
   useEffect(() => {
     const hasSeenPlan = localStorage.getItem('hasSeenPlan');
@@ -70,13 +71,16 @@ const Dashboard = () => {
 
     if (shouldHideOverflow) {
       document.body.classList.add("overflow-hidden");
+      setPreview(false);
     } else {
       document.body.classList.remove("overflow-hidden");
+      setPreview(true);
     }
 
     // Cleanup function to ensure class is removed on unmount
     return () => {
       document.body.classList.remove("overflow-hidden");
+      setPreview(true);
     };
   }, [nameBio, addCategory, addSocial, addLinks, previewMedia, showPlan]);
 
@@ -616,21 +620,21 @@ const Dashboard = () => {
         {/* Profile */}
         <div className="flex flex-col gap-3 bg-[#e1bb80] padding20 rounded-xl">
           <div className="flex justify-between gap-3 items-center">
-            <div className="flex items-center gap-3">
-              <label>
-                <img className='md:w-24 w-20 md:h-24 h-20 rounded-full object-cover cursor-pointer' src={user?.profilePic} alt="pic" />
+            <div className="flex md:flex-row flex-col justify-center items-center gap-3">
+              <label className='w-full'>
+                <img className='w-24 h-24 rounded-full object-cover cursor-pointer' src={user?.profilePic} alt="pic" />
                 <input accept="image/*" onChange={handleFileChange} type="file" className='hidden' />
               </label>
 
               <div className="flex flex-col gap-1 overflow-hidden">
-                <h1 onClick={() => setNameBio(!nameBio)} className='text-xl font-medium hover:underline cursor-pointer flex items-center gap-1 whitespace-nowrap truncate'>
-                  {user?.name}
+                <div onClick={() => setNameBio(!nameBio)} className='text-xl font-medium hover:underline cursor-pointer flex items-center gap-1 whitespace-nowrap truncate'>
+                  <h1>{user?.name}</h1>
                   {
                     user?.isPro && (
-                      <img className='w-6 object-contain md:flex hidden' src="/blueTick.png" alt="pro" />
+                      <img className='w-6 object-contain' src="/blueTick.png" alt="pro" />
                     )
                   }
-                </h1>
+                </div>
                 <p onClick={() => setAddCategory(!addCategory)} className='text-sm hover:underline cursor-pointer'>{user?.category || "category"}</p>
                 <p onClick={() => setNameBio(!nameBio)} className='text-sm hover:underline cursor-pointer'>{user?.bio || "Add your bio"}</p>
               </div>
@@ -734,7 +738,7 @@ const Dashboard = () => {
           </div>
 
           <button onClick={() => setAddSocial(!addSocial)} className='bg-[#432818] text-[#ffe6a7] paddingy w-full rounded-full cursor-pointer'>
-            <i className="fa-solid fa-plus" /> Add
+            <i className="fa-solid fa-plus" /> Add Social
           </button>
           {/* Social Media and links */}
           {addSocial && (
@@ -1214,7 +1218,7 @@ const Dashboard = () => {
             </label>
             <div className="flex flex-col gap-3 w-full">
               <input onChange={handleAboutChange} value={formData.about.title || ""} className='bg-[#ffe6a7] focus:outline-none padding10 rounded-xl' placeholder='Title' name='title' type="text" />
-              <textarea onChange={handleAboutChange} value={formData.about.description || ""} className='bg-[#ffe6a7] focus:outline-none padding10 rounded-xl' placeholder='Description' name="description"></textarea>
+              <textarea onChange={handleAboutChange} value={formData.about.description || ""} className='bg-[#ffe6a7] focus:outline-none padding10 rounded-xl min-h-[200px]' placeholder='Description' name="description"></textarea>
               <input onChange={handleAboutChange} value={formData.about.resume || ""} className='bg-[#ffe6a7] focus:outline-none padding10 rounded-xl' placeholder='URL (resume or other)' name='resume' type="text" />
             </div>
 
@@ -1225,7 +1229,7 @@ const Dashboard = () => {
 
       {/* Preview */}
       {
-        !previewMedia && (
+        preview && (
           <Link to={`/${user?.username}`}>
             <button className='bg-[#432818] text-[#ffe6a7] fixed text-center md:left-[50%] left-[33%] bottom-20 paddingy rounded-full cursor-pointer z-50'>Preview</button>
           </Link>
