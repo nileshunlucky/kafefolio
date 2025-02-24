@@ -326,16 +326,9 @@ const Dashboard = () => {
 
   const handleLinkMedia = async (e) => {
     try {
-      const file = e.target.files[0];
-
-      if (!file) {
-        toast.error("No file selected.");
-        return;
-      }
-
       const formData = new FormData();
-      formData.append("image", file);
-
+      formData.append("image", e.target.files[0]);
+      
       // Upload each Media
       const token = localStorage.getItem("token");
       const res = await axios.post('https://kafefolio-server.onrender.com/api/user/media', formData, {
@@ -530,15 +523,6 @@ const Dashboard = () => {
 
       // Success feedback
       toast.success("Image uploaded!");
-
-      // Update the user state with the new data
-      setUser((prev) => ({
-        ...prev,
-        about: {
-          ...prev.about,
-          image: data.url,
-        } // Assuming the response includes the updated profilePic URL
-      }));
 
       // Update the user state with the new data
       setUser((prev) => ({
