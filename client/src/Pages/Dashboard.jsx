@@ -328,7 +328,7 @@ const Dashboard = () => {
     try {
       const formData = new FormData();
       formData.append("image", e.target.files[0]);
-      
+
       // Upload each Media
       const token = localStorage.getItem("token");
       const res = await axios.post('https://kafefolio-server.onrender.com/api/user/media', formData, {
@@ -497,6 +497,7 @@ const Dashboard = () => {
 
       toast.success("Link added!");
 
+
       setAddLinks(false);
     } catch (error) {
       console.error("Add Error:", error);
@@ -506,37 +507,35 @@ const Dashboard = () => {
 
   const handleLinkImageChange = async (e) => {
     try {
-      const formData = new FormData();
-      formData.append("image", e.target.files[0]);
+      const uploadData = new FormData();
+      uploadData.append("image", e.target.files[0]);
 
-      // Make the POST request to upload the image
-      const res = await axios.post('https://kafefolio-server.onrender.com/api/user/link', formData, {
+      const res = await axios.post('https://kafefolio-server.onrender.com/api/user/link', uploadData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         }
       });
 
-      // Axios automatically parses JSON responses, so use `res.data` directly
       const data = res.data;
+      console.log("data", data);
+      console.log("res", res);
 
       // Success feedback
       toast.success("Image uploaded!");
 
-      // Update the user state with the new data
-      setUser((prev) => ({
-        ...prev,
-        links: {
-          ...prev.links,
-          image: data.url,
-          
-        }
-      }));
+      // Ensure the first link gets the image URL
+      setFormData((prev) => {
+        const updatedLinks = [...prev.links];
+        updatedLinks[0] = { ...updatedLinks[0], image: data.url };
+        return { ...prev, links: updatedLinks };
+      });
 
     } catch (error) {
       console.error('Error uploading image:', error);
       toast.error(error.message);
     }
-  }
+  };
+
 
   const handleDeleteLink = async (index) => {
     try {
@@ -1033,11 +1032,18 @@ const Dashboard = () => {
           <div className="flex flex-col gap-3">
             <h1 className="text-2xl font-semibold text-[#432818] text-center">Links</h1>
             {
-              user?.links?.map((link, index) => (
+              user?.links.map((link, index) => (
                 <div key={index} className="flex items-center justify-between gap-3 border bg-[#e1bb80] text-[#432818] padding10 rounded-2xl overflow-hidden">
-                  <div className="flex flex-col gap-2">
-                    <h1 className="text-lg font-medium truncate">{link?.text}</h1>
-                    <p className="md:flex hidden">{link?.url}</p>
+                  <div className="flex justify-between items-center gap-3">
+                    {
+                      link?.image && (
+                        <img className="w-10 h-10 object-cover rounded-full" src={link?.image} alt={link?.text} />
+                      )
+                    }
+                    <div className="flex flex-col gap-2">
+                      <h1 className="text-lg font-medium truncate">{link?.text}</h1>
+                      <p className="md:flex hidden">{link?.url}</p>
+                    </div>
                   </div>
                   {/* Delete */}
                   <i onClick={() => handleDeleteLink(index)} className="fa-solid fa-trash text-2xl padding10 cursor-pointer" />
@@ -1103,7 +1109,7 @@ const Dashboard = () => {
 
                   {/* Upload Image */}
                   <label >
-                    <img src={formData.links[0]?.image || '/coffee.png'} alt="img" />
+                    <img src={user?.links?.image || '/coffee.png'} alt="img" />
                     <input onChange={handleLinkImageChange} type="file" accept="image/*" hidden />
                   </label>
 
