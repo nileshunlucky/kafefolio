@@ -405,7 +405,7 @@ const Account = () => {
             <form className="bg-[#ffe6a7] flex flex-col gap-5 padding20 rounded-xl shadow-lg w-[80%] md:w-[40%]">
               <h2 className="text-xl font-medium text-center">Change username</h2>
               <div className="flex items-center bg-[#e1bb80] padding10 rounded-2xl">
-                <p>kafefolio.com/</p>
+                <p>kafefolio.vercel.app/</p>
                 <input
                   type="text"
                   name="username"
