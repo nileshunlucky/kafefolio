@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { toast, Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ const Dashboard = () => {
   const [previewMedia, setPreviewMedia] = useState(null);
   const [showPlan, setShowPlan] = useState(false);
   const [preview, setPreview] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const hasSeenPlan = localStorage.getItem('hasSeenPlan');
@@ -145,6 +147,8 @@ const Dashboard = () => {
             resume: data.about?.resume
           }
         }));
+
+        setLoading(false);
       } catch (error) {
         console.error("Profile Fetch Error:", error);
         toast.error(error.message);
@@ -617,6 +621,36 @@ const Dashboard = () => {
       toast.error(error.message || "Something went wrong while updating the theme.");
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col gap-2 justify-center items-center h-screen ">
+        {/* Coffee Cup */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+          className="relative"
+        >
+          <img
+            src="https://i.pinimg.com/originals/33/a5/d5/33a5d563b09c60db33a18a6be523c8a6.gif"
+            alt="Loading coffee"
+            className="w-24 h-24"
+          />
+        </motion.div>
+
+        {/* Loading Text */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+          className="mt-3 text-[#432818] text-lg font-medium Montserrat"
+        >
+          Brewing your experience...
+        </motion.p>
+      </div>
+    );
+  }
 
   return (
     <div className='flex justify-center items-center md:h-auto min-h-screen scroll-smooth overflow-hidden relative'>

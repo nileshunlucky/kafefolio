@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { motion } from "framer-motion";
 
 const Analytics = () => {
   const [analytics, setAnalytics] = useState([]);
@@ -59,11 +60,33 @@ const Analytics = () => {
   }, [user?._id]);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen">Loading analytics...</div>;
-  }
+    return (
+      <div className="flex flex-col gap-2 justify-center items-center h-screen ">
+        {/* Coffee Cup */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+          className="relative"
+        >
+          <img
+            src="https://i.pinimg.com/originals/33/a5/d5/33a5d563b09c60db33a18a6be523c8a6.gif"
+            alt="Loading coffee"
+            className="w-24 h-24"
+          />
+        </motion.div>
 
-  if (error) {
-    return <div className="text-center text-red-500">{error}</div>;
+        {/* Loading Text */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+          className="mt-3 text-[#432818] text-lg font-medium Montserrat"
+        >
+          Brewing your experience...
+        </motion.p>
+      </div>
+    );
   }
 
   const aggregatedData = Array.isArray(analytics)

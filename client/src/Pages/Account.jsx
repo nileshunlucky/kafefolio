@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { Link, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion';
 
 const Account = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const Account = () => {
   const [username, setUsername] = useState(false);
   const [deleteAccount, setDeleteAccount] = useState(false);
   const [share, setShare] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const shouldHideOverflow = username || deleteAccount || share;
@@ -50,6 +52,7 @@ const Account = () => {
           email: data.email,
           username: data.username || "",
         });
+        setLoading(false);
       } catch (error) {
         console.error("Profile Fetch Error:", error);
         toast.error(error.message);
@@ -164,6 +167,36 @@ const Account = () => {
       toast.error(error.message);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="flex flex-col gap-2 justify-center items-center h-screen ">
+        {/* Coffee Cup */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+          className="relative"
+        >
+          <img
+            src="https://i.pinimg.com/originals/33/a5/d5/33a5d563b09c60db33a18a6be523c8a6.gif"
+            alt="Loading coffee"
+            className="w-24 h-24"
+          />
+        </motion.div>
+
+        {/* Loading Text */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+          className="mt-3 text-[#432818] text-lg font-medium Montserrat"
+        >
+          Brewing your experience...
+        </motion.p>
+      </div>
+    );
+  }
 
   return (
     <div className='flex justify-center items-center'>

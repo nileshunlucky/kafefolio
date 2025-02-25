@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Template = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const Template = () => {
     },
   });
   const [selectedPlan, setSelectedPlan] = useState("Free");
+  const [loading, setLoading] = useState(true);
 
   // Define themes for each template
   const templateThemes = {
@@ -95,6 +97,8 @@ const Template = () => {
             },
           },
         });
+
+        setLoading(false);
       } catch (error) {
         console.error("Profile Fetch Error:", error);
         toast.error(error.message);
@@ -151,10 +155,40 @@ const Template = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex flex-col gap-2 justify-center items-center h-screen ">
+        {/* Coffee Cup */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+          className="relative"
+        >
+          <img
+            src="https://i.pinimg.com/originals/33/a5/d5/33a5d563b09c60db33a18a6be523c8a6.gif"
+            alt="Loading coffee"
+            className="w-24 h-24"
+          />
+        </motion.div>
+
+        {/* Loading Text */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: "mirror" }}
+          className="mt-3 text-[#432818] text-lg font-medium Montserrat"
+        >
+          Brewing your experience...
+        </motion.p>
+      </div>
+    );
+  }
+
   return (
     <div
       className="flex justify-center items-center md:h-auto min-h-screen scroll-smooth overflow-hidden">
-        <Toaster />
+      <Toaster />
       <div className="md:w-[60%] w-[90%] text-[#432818] flex flex-col gap-5 marginb padding20 bg-[#e1bb80] rounded-2xl">
         <h1 className="text-2xl font-medium text-center">Template</h1>
         {/* Plan Selection */}
@@ -246,7 +280,7 @@ const Template = () => {
             </button>
             {/* Frozen #5ce1e6 */}
             <button
-             onClick={() => user?.isPro ? handleTemplateChange("Frozen") : navigate("/admin/upgrade")}
+              onClick={() => user?.isPro ? handleTemplateChange("Frozen") : navigate("/admin/upgrade")}
               className={`${selectedPlan === "Pro" ? "flex" : "hidden"
                 } flex-col justify-center items-center gap-2 md:w-[130px] cursor-pointer`}>
               <img
@@ -258,7 +292,7 @@ const Template = () => {
             </button>
             {/* Snivy */}
             <button
-             onClick={() => user?.isPro ? handleTemplateChange("Snivy") : navigate("/admin/upgrade")}
+              onClick={() => user?.isPro ? handleTemplateChange("Snivy") : navigate("/admin/upgrade")}
               className={`${selectedPlan === "Pro" ? "flex" : "hidden"
                 } flex-col justify-center items-center gap-2 md:w-[130px] cursor-pointer`}>
               <img
@@ -270,7 +304,7 @@ const Template = () => {
             </button>
             {/* Cloyster */}
             <button
-             onClick={() => user?.isPro ? handleTemplateChange("Cloyster") : navigate("/admin/upgrade")}
+              onClick={() => user?.isPro ? handleTemplateChange("Cloyster") : navigate("/admin/upgrade")}
               className={`${selectedPlan === "Pro" ? "flex" : "hidden"
                 } flex-col justify-center items-center gap-2 md:w-[130px] cursor-pointer`}>
               <img
@@ -282,7 +316,7 @@ const Template = () => {
             </button>
             {/* Moltres */}
             <button
-             onClick={() => user?.isPro ? handleTemplateChange("Moltres") : navigate("/admin/upgrade")}
+              onClick={() => user?.isPro ? handleTemplateChange("Moltres") : navigate("/admin/upgrade")}
               className={`${selectedPlan === "Pro" ? "flex" : "hidden"
                 } flex-col justify-center items-center gap-2 md:w-[130px] cursor-pointer`}>
               <img
