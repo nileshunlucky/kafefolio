@@ -9,6 +9,13 @@ export const UserProfile = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
+        // Check if Pro plan has expired
+        if (user?.subscription?.expiresAt && new Date() > new Date(user.subscription.expiresAt)) {
+            user.isPro = false;
+            user.subscription = null;
+            await user.save();
+        }
+
         res.json(user);
     } catch (error) {
         console.error("Error fetching user profile:", error);
@@ -256,7 +263,7 @@ export const linkImg = async (req, res) => {
         }
 
         if (!req.file) {
-            return res.status(400).json({ message: 'No file uploaded' });   
+            return res.status(400).json({ message: 'No file uploaded' });
         }
 
         user.links.image = imageUrl;
@@ -279,8 +286,19 @@ export const activePro = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        // update the 'subscription' field in the user document
-        user.subscription = { transactionId: payment_id, amount, method, transactionDate: new Date() };
+
+        // Set Pro Plan Expiry (30 days from now)
+        const proDuration = 30 * 24 * 60 * 60 * 1000; // 30 days in milliseconds
+        const expiryDate = new Date(Date.now() + proDuration);
+
+        // Update user's subscription and pro status
+        user.subscription = {
+            transactionId: payment_id,
+            amount,
+            method,
+            transactionDate: new Date(),
+            expiresAt: expiryDate  // Store expiry date
+        };
 
         // Update the 'isPro' field in the user document
         user.isPro = true;

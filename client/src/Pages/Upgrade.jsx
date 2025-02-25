@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import {toast, Toaster} from 'react-hot-toast';
 const Upgrade = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
@@ -50,7 +50,7 @@ const Upgrade = () => {
                 name: "Kafefolio",
                 description: "Monthly Subscription Plan",
                 handler: async function (response) {
-                    alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+                    toast.success("Payment successful!");
 
                     // Send payment details to the backend to update the user's subscription status
                     const updateRes = await fetch("https://kafefolio-server.onrender.com/api/user/activate-pro", {
@@ -92,6 +92,7 @@ const Upgrade = () => {
 
     return (
         <div className="min-h-screen flex justify-center items-center padding20">
+            <Toaster/>
             {
                 !user?.isPro ? (
                     <div className="flex flex-col gap-5 items-center text-center bg-[#E1BB80] text-[#432818] rounded-xl padding20">
