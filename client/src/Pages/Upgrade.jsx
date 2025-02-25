@@ -96,7 +96,7 @@ const Upgrade = () => {
                 !user?.isPro ? (
                     <div className="flex flex-col gap-5 items-center text-center bg-[#E1BB80] text-[#432818] rounded-xl padding20">
                         <h1 className="text-2xl border-b border-[#432818] whitespace-nowrap">Upgrade to Pro Plan</h1>
-                        <p>Subscribe for ₹299 per month and unlock premium features.</p>
+                        <p>Subscribe for ₹99 per month and unlock premium features.</p>
                         <button
                             className="bg-[#432818] text-[#E1BB80] w-full cursor-pointer whitespace-nowrap padding10 rounded-xl"
                             onClick={handlePayment}

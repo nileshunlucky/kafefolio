@@ -628,7 +628,7 @@ const Dashboard = () => {
             <h1 className="text-2xl border-b border-[#432818] pb-2 whitespace-nowrap">
               Upgrade to Pro Plan
             </h1>
-            <p>Subscribe for ₹299 per month and unlock premium features.</p>
+            <p>Subscribe for ₹99 per month and unlock premium features.</p>
             <button
               onClick={() => navigate('/admin/upgrade')}
               className="bg-[#432818] text-[#E1BB80] w-full cursor-pointer whitespace-nowrap padding10 rounded-xl"

@@ -79,7 +79,7 @@ const Plans = () => {
             <ul>
               <li className='padding10 bg-[#ffe6a7] text-[#432818] text-xl'>Pro</li>
               <hr />
-              <li className='padding10'>₹299</li>
+              <li className='padding10'>₹99</li>
               <hr />
               <li className='padding10'>Yes</li>
               <hr />
