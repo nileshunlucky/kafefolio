@@ -38,6 +38,14 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/v1', razorpayRoutes);
+app.get('/smart-api', (req, res) => {
+    const code = req.query.code;
+    if (code) {
+        res.json({ code });
+    } else {
+        res.status(400).json({ error: "Code not found" });
+    }
+})
 
 const PORT = process.env.PORT || 3000;
 
