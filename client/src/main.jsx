@@ -48,6 +48,10 @@ const router = createBrowserRouter([
     element: <Plans />,
   },
   {
+    path: "/ads.txt", 
+    element: null,
+  },
+  {
     path: "/:username",
     element: <Profile />,
     children: [
