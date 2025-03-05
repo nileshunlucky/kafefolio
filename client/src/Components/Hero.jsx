@@ -14,7 +14,7 @@ const Hero = () => {
             <div className="md:flex items-center gap-5">
                 <div className="md:w-[50%] flex flex-col md:gap-5 justify-center items-start h-screen">
                     <div className="padding20">
-                        <h1 className='md:text-5xl text-4xl font-extrabold'>Everything you are. In one, simple Portfolio in bio.</h1>
+                        <h1 className='md:text-5xl text-4xl font-extrabold'>Everything you are. In one, simple Portfolio in the bio.</h1>
                     </div>
                     <div className="padding20">
                         <p>Kafefolio for their portfolio in bio. One portfolio to help you share everything you create, curate and sell from your Instagram, TikTok, Twitter, YouTube and other social media profiles.</p>
